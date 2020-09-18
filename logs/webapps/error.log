@@ -1,0 +1,27 @@
+2020/09/15 10:11:57 ERROR [http-nio-8800-exec-3] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:72] 账号不存在 {"name":"2333"}
+2020/09/15 10:11:57 ERROR [http-nio-8800-exec-6] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 验证码不存在或已过期
+	at com.wteam.modules.security.web.AuthController.login(AuthController.java:87)
+	at com.wteam.modules.security.web.AuthController$$FastClassBySpringCGLIB$$ead14f1e.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+
+2020/09/15 10:12:04 ERROR [http-nio-8800-exec-7] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:72] 账号不存在 {"name":"2333"}
+2020/09/15 10:19:31 ERROR [http-nio-8800-exec-10] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 验证码错误
+	at com.wteam.modules.security.web.AuthController.login(AuthController.java:90)
+	at com.wteam.modules.security.web.AuthController$$FastClassBySpringCGLIB$$ead14f1e.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+
+2020/09/15 10:24:18 ERROR [http-nio-8800-exec-5] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:105] org.springframework.security.access.AccessDeniedException: 不允许访问
+	at org.springframework.security.access.vote.AffirmativeBased.decide(AffirmativeBased.java:84)
+	at org.springframework.security.access.intercept.AbstractSecurityInterceptor.beforeInvocation(AbstractSecurityInterceptor.java:233)
+	at org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor.invoke(MethodSecurityInterceptor.java:65)
+
+2020/09/15 10:24:36 ERROR [http-nio-8800-exec-7] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:105] org.springframework.security.access.AccessDeniedException: 不允许访问
+	at org.springframework.security.access.vote.AffirmativeBased.decide(AffirmativeBased.java:84)
+	at org.springframework.security.access.intercept.AbstractSecurityInterceptor.beforeInvocation(AbstractSecurityInterceptor.java:233)
+	at org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor.invoke(MethodSecurityInterceptor.java:65)
+
+2020/09/15 10:34:02 ERROR [http-nio-8800-exec-2] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:105] org.springframework.security.access.AccessDeniedException: 不允许访问
+	at org.springframework.security.access.vote.AffirmativeBased.decide(AffirmativeBased.java:84)
+	at org.springframework.security.access.intercept.AbstractSecurityInterceptor.beforeInvocation(AbstractSecurityInterceptor.java:233)
+	at org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor.invoke(MethodSecurityInterceptor.java:65)
+

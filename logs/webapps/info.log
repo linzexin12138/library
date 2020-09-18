@@ -1,0 +1,75 @@
+2020/09/18 10:26:37 INFO [main] c.w.AbootRun [StartupInfoLogger.java:55] Starting AbootRun on LAPTOP-6P4NQTEI with PID 20312 (C:\Users\lin\Desktop\慕编圈设计\项目\aboot4\aboot-system\target\classes started by lin in C:\Users\lin\Desktop\慕编圈设计\项目\aboot4)
+2020/09/18 10:26:37 INFO [main] c.w.AbootRun [SpringApplication.java:655] The following profiles are active: dev
+2020/09/18 10:27:02 INFO [main] c.w.u.PathUtil [PathUtil.java:54] 操作系统---Windows 10
+2020/09/18 10:27:02 INFO [main] c.w.u.PathUtil [PathUtil.java:55] 线程根路径---/C:/Users/lin/Desktop/%e6%85%95%e7%bc%96%e5%9c%88%e8%ae%be%e8%ae%a1/%e9%a1%b9%e7%9b%ae/aboot4/aboot-system/target/classes/
+2020/09/18 10:27:02 INFO [main] c.w.u.PathUtil [PathUtil.java:56] 项目目录路径---C:\Users\lin\Desktop\慕编圈设计\项目\aboot4
+2020/09/18 10:27:02 INFO [main] c.w.u.PathUtil [PathUtil.java:61] 资源存储路径---D:\projectdev\aboot4\
+2020/09/18 10:27:04 INFO [main] c.w.c.RedisConfig [RedisConfig.java:122] 初始化 -> [Redis CacheErrorHandler]
+2020/09/18 10:27:08 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: ONLINE:all------在线用户管理
+2020/09/18 10:27:08 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: ONLINE:add------在线用户创建
+2020/09/18 10:27:08 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: ONLINE:edit------在线用户编辑
+2020/09/18 10:27:08 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: ONLINE:list------在线用户查询
+2020/09/18 10:27:08 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: ONLINE:del------在线用户删除
+2020/09/18 10:27:08 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: DEPT:all------部门管理
+2020/09/18 10:27:08 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: DEPT:add------部门创建
+2020/09/18 10:27:08 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: DEPT:edit------部门编辑
+2020/09/18 10:27:08 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: DEPT:list------部门查询
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: DEPT:del------部门删除
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: JOB:all------岗位管理
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: JOB:add------岗位创建
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: JOB:edit------岗位编辑
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: JOB:list------岗位查询
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: JOB:del------岗位删除
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: MENU:all------菜单管理
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: MENU:add------菜单创建
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: MENU:edit------菜单编辑
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: MENU:list------菜单查询
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: MENU:del------菜单删除
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: PERMISSION:all------权限管理
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: PERMISSION:add------权限创建
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: PERMISSION:edit------权限编辑
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: PERMISSION:list------权限查询
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: PERMISSION:del------权限删除
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: ROLES:all------角色管理
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: ROLES:add------角色创建
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: ROLES:edit------角色编辑
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: ROLES:list------角色查询
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: ROLES:del------角色删除
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: USER:all------用户管理
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: USER:add------用户创建
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: USER:edit------用户编辑
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: USER:list------用户查询
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: USER:del------用户删除
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: GROUPDATA:all------数据组管理
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: GROUPDATA:add------数据组创建
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: GROUPDATA:edit------数据组编辑
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: GROUPDATA:list------数据组查询
+2020/09/18 10:27:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: GROUPDATA:del------数据组删除
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: LOCALSTORAGE:all------存储管理
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: LOCALSTORAGE:add------存储创建
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: LOCALSTORAGE:edit------存储编辑
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: LOCALSTORAGE:list------存储查询
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: LOCALSTORAGE:del------存储删除
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: SHOWCONFIG:all------前端配置管理
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: SHOWCONFIG:add------前端配置创建
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: SHOWCONFIG:edit------前端配置编辑
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: SHOWCONFIG:list------前端配置查询
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: SHOWCONFIG:del------前端配置删除
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: DICT:all------字典管理
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: DICT:add------字典创建
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: DICT:edit------字典编辑
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: DICT:list------字典查询
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: DICT:del------字典删除
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: WXCONFIG:all------微信配置管理
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: WXCONFIG:add------微信配置创建
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: WXCONFIG:edit------微信配置编辑
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: WXCONFIG:list------微信配置查询
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: WXCONFIG:del------微信配置删除
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: WXUSER:all------微信用户管理
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: WXUSER:add------微信用户创建
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: WXUSER:edit------微信用户编辑
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: WXUSER:list------微信用户查询
+2020/09/18 10:27:10 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: WXUSER:del------微信用户删除
+2020/09/18 10:27:10 INFO [main] c.w.AbootRun [StartupInfoLogger.java:61] Started AbootRun in 34.739 seconds (JVM running for 38.73)
+2020/09/18 10:27:10 INFO [main] c.w.AbootRun [AbootRun.java:36] link(接口文档):  http://localhost:8800/doc.html
+2020/09/18 10:27:10 INFO [main] c.w.AbootRun [AbootRun.java:37] link(api导出):   http://localhost:8800/v2/api-docs
