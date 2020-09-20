@@ -1,6 +1,7 @@
 package com.wteam.modules.system.service;
 
 import com.wteam.domain.vo.JwtUser;
+import com.wteam.modules.library.domain.criteria.UserRoleQueryCriteria;
 import com.wteam.modules.system.domain.User;
 import com.wteam.modules.system.domain.criteria.UserQueryCriteria;
 import com.wteam.modules.system.domain.dto.UserDTO;
@@ -86,6 +87,7 @@ public interface UserService {
      */
     Object queryAll(UserQueryCriteria criteria, Pageable pageable);
 
+    Object queryAll(UserRoleQueryCriteria criteria, Pageable pageable);
 
     Page<UserDTO> queryPage(UserQueryCriteria criteria, Pageable pageable);
     /**
@@ -108,7 +110,6 @@ public interface UserService {
      * @param jwtUser
      */
     void updateLoginTime(JwtUser jwtUser);
-
 
 
 }

@@ -26,10 +26,12 @@ import com.wteam.modules.miniapp.domain.dto.WxUserDTO;
 import com.wteam.modules.miniapp.domain.mapper.WxUserMapper;
 import com.wteam.modules.miniapp.repository.WxUserRepository;
 import com.wteam.modules.miniapp.service.WxUserService;
+import com.wteam.modules.miniapp.util.SslUtil;
 import com.wteam.utils.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
+import org.apache.tomcat.util.net.SSLUtil;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -143,8 +145,7 @@ public class WxUserServiceImpl implements WxUserService {
     public WxUser load(WxLoginDTO wxLoginDTO) {
         WxUser wxUser = null;
         try {
-            WxMaService maService = WxMaConfiguration
-                    .getMaService(wxLoginDTO.getAppid());
+            WxMaService maService = WxMaConfiguration.getMaService(wxLoginDTO.getAppid());
             WxMaUserService wxMaUserService =maService.getUserService();
             WxMaJscode2SessionResult sessionInfo = maService.jsCode2SessionInfo(wxLoginDTO.getCode());
             wxUser = findByOpenId(sessionInfo.getOpenid());

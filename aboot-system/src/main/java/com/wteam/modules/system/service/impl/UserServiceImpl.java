@@ -5,6 +5,7 @@ import com.wteam.domain.vo.JwtUser;
 import com.wteam.exception.BadRequestException;
 import com.wteam.exception.EntityExistException;
 import com.wteam.exception.EntityNotFoundException;
+import com.wteam.modules.library.domain.criteria.UserRoleQueryCriteria;
 import com.wteam.modules.miniapp.service.WxUserService;
 import com.wteam.modules.security.service.OnlineUserService;
 import com.wteam.modules.security.service.UserCacheClean;
@@ -206,6 +207,13 @@ public class UserServiceImpl implements UserService {
         return PageUtil.toPage(userRepository.findAll((root, cq, cb) ->
             QueryHelper.andPredicate(root, criteria, cb),pageable)
         .map(userMapper::toDto));
+    }
+
+    @Override
+    public Object queryAll(UserRoleQueryCriteria criteria, Pageable pageable) {
+        return PageUtil.toPage(userRepository.findAll((root, cq, cb) ->
+                QueryHelper.andPredicate(root, criteria, cb),pageable)
+                .map(userMapper::toDto));
     }
 
     @Override

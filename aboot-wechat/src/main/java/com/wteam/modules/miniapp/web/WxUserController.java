@@ -50,7 +50,7 @@ public class WxUserController {
     }
 
     //@Log("查询微信用户详情")
-    @ApiOperation(value = "查询微信用户")
+    @ApiOperation(value = "查询微信用户详情")
     @GetMapping(value = "/get/{uid}")
     @PreAuthorize("@R.check('GENTEMPLATE:all','GENTEMPLATE:list')")
     public R get(@PathVariable Long uid){
