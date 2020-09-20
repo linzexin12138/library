@@ -68,4 +68,13 @@ public class StudentController {
         resources.setLoginType(LoginType.LOGIN_NORMAL);
         return R.ok(userService.createAdmin(resources,STUDENT));
     }
+
+    @ApiOperation(value = "编辑学生")
+    @Log("编辑学生")
+    @PostMapping("/edit")
+    @PreAuthorize("@R.check('STUDENT:all','STUDENT:edit')")
+    public R edit(@Validated(User.Update.class) @RequestBody User resources){
+        userService.update(resources);
+        return R.ok();
+    }
 }

@@ -71,20 +71,22 @@ public class AdminController {
         return R.ok(userService.createAdmin(resources,ADMIN));
     }
 
-    @ApiOperation(value = "编辑管理员列表")
+    @ApiOperation(value = "编辑管理员")
     @Log("编辑管理员")
     @PostMapping("/edit")
     @PreAuthorize("@R.check('ADMIN:all','ADMIN:edit')")
-    public R edit(){
+    public R edit(@Validated(User.Update.class) @RequestBody User resources){
+        userService.update(resources);
         return R.ok();
     }
 
-    @ApiOperation(value = "批量删除管理员列表")
+    @ApiOperation(value = "批量删除管理员")
     @Log("批量删除管理员")
     @PostMapping("/delete")
     @PreAuthorize("@R.check('ADMIN:all','ADMIN:del')")
     public R delete(){
         return R.ok();
     }
+
 
 }

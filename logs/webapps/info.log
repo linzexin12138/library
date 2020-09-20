@@ -204,3 +204,13 @@
 2020/09/20 19:21:28 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:61] Started AbootRun in 28.493 seconds (JVM running for 32.515)
 2020/09/20 19:21:28 INFO [restartedMain] c.w.AbootRun [AbootRun.java:36] link(接口文档):  http://localhost:8800/doc.html
 2020/09/20 19:21:28 INFO [restartedMain] c.w.AbootRun [AbootRun.java:37] link(api导出):   http://localhost:8800/v2/api-docs
+2020/09/20 19:56:13 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:55] Starting AbootRun on LAPTOP-6P4NQTEI with PID 8632 (C:\Users\lin\Desktop\慕编圈设计\项目\aboot4\aboot-system\target\classes started by lin in C:\Users\lin\Desktop\慕编圈设计\项目\aboot4)
+2020/09/20 19:56:13 INFO [restartedMain] c.w.AbootRun [SpringApplication.java:655] The following profiles are active: dev
+2020/09/20 19:56:36 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:54] 操作系统---Windows 10
+2020/09/20 19:56:36 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:55] 线程根路径---/C:/Users/lin/Desktop/%e6%85%95%e7%bc%96%e5%9c%88%e8%ae%be%e8%ae%a1/%e9%a1%b9%e7%9b%ae/aboot4/aboot-system/target/classes/
+2020/09/20 19:56:36 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:56] 项目目录路径---C:\Users\lin\Desktop\慕编圈设计\项目\aboot4
+2020/09/20 19:56:36 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:61] 资源存储路径---D:\projectdev\aboot4\
+2020/09/20 19:56:38 INFO [restartedMain] c.w.c.RedisConfig [RedisConfig.java:122] 初始化 -> [Redis CacheErrorHandler]
+2020/09/20 19:56:44 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:61] Started AbootRun in 33.204 seconds (JVM running for 38.84)
+2020/09/20 19:56:44 INFO [restartedMain] c.w.AbootRun [AbootRun.java:36] link(接口文档):  http://localhost:8800/doc.html
+2020/09/20 19:56:44 INFO [restartedMain] c.w.AbootRun [AbootRun.java:37] link(api导出):   http://localhost:8800/v2/api-docs
