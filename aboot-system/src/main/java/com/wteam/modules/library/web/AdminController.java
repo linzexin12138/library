@@ -3,14 +3,17 @@ package com.wteam.modules.library.web;
 import com.wteam.annotation.Log;
 import com.wteam.annotation.permission.PermissionGroup;
 import com.wteam.domain.vo.R;
+import com.wteam.exception.BadRequestException;
 import com.wteam.modules.library.domain.criteria.UserRoleQueryCriteria;
 import com.wteam.modules.system.config.LoginType;
 import com.wteam.modules.system.domain.Role;
 import com.wteam.modules.system.domain.User;
 import com.wteam.modules.system.domain.dto.RoleDTO;
+import com.wteam.modules.system.domain.dto.RoleSmallDTO;
 import com.wteam.modules.system.domain.mapper.RoleMapper;
 import com.wteam.modules.system.service.RoleService;
 import com.wteam.modules.system.service.UserService;
+import com.wteam.utils.SecurityUtils;
 import com.wteam.utils.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,6 +24,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -71,22 +78,9 @@ public class AdminController {
         return R.ok(userService.createAdmin(resources,ADMIN));
     }
 
-    @ApiOperation(value = "编辑管理员")
-    @Log("编辑管理员")
-    @PostMapping("/edit")
-    @PreAuthorize("@R.check('ADMIN:all','ADMIN:edit')")
-    public R edit(@Validated(User.Update.class) @RequestBody User resources){
-        userService.update(resources);
-        return R.ok();
-    }
+    //编辑管理员的功能通过调用UserController里的edit方法，路径为/api/user/edit
 
-    @ApiOperation(value = "批量删除管理员")
-    @Log("批量删除管理员")
-    @PostMapping("/delete")
-    @PreAuthorize("@R.check('ADMIN:all','ADMIN:del')")
-    public R delete(){
-        return R.ok();
-    }
+    //批量删除管理者的功能调用UserController里的delete方法，路径为/api/user/del
 
 
 }

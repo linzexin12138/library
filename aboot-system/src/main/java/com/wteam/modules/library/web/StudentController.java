@@ -69,12 +69,7 @@ public class StudentController {
         return R.ok(userService.createAdmin(resources,STUDENT));
     }
 
-    @ApiOperation(value = "编辑学生")
-    @Log("编辑学生")
-    @PostMapping("/edit")
-    @PreAuthorize("@R.check('STUDENT:all','STUDENT:edit')")
-    public R edit(@Validated(User.Update.class) @RequestBody User resources){
-        userService.update(resources);
-        return R.ok();
-    }
+    //编辑管理员的功能通过调用UserController里的edit方法，路径为/api/user/edit
+
+    //批量删除管理者的功能调用UserController里的delete方法，路径为/api/user/del
 }

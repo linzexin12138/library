@@ -125,7 +125,7 @@ public class UserController {
     @ApiOperation(value = "新增用户")
     @Log("新增用户")
     @PostMapping("add")
-    @PreAuthorize("@R.check('USER:all','USER:edit')")
+    @PreAuthorize("@R.check('USER:all','USER:add')")
     public R create(@Validated @RequestBody User resources){
         Assert.isNull(resources.getId(),"实体ID应为空");
         checkLevel(resources);
