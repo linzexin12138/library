@@ -258,6 +258,23 @@ public class UserServiceImpl implements UserService {
         userRepository.updateLoginTime(jwtUser.getUsername(), Timestamp.valueOf(LocalDateTime.now()));
     }
 
+    /**
+     * 添加管理员用户
+     * @param resources
+     * @return
+     */
+    @SuppressWarnings("Duplicates")
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public UserDTO createAdmin(User resources, Long roleId) {
+        UserDTO userDTO = create(resources);
+        addUserRoleMap(resources.getId(),roleId);
+        return userDTO;
+    }
+
+    public void addUserRoleMap(Long userId, Long roleId){
+        userRepository.addUserRoleMap(userId, roleId);
+    }
 
     /**
      * 清理缓存

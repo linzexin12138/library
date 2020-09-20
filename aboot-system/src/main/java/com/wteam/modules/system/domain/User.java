@@ -107,7 +107,6 @@ public class User extends BaseEntity {
     /**
      * 拥有角色
      */
-    @NotEmpty
     @ManyToMany
     @JoinTable(name = "sys_users_roles_map",joinColumns ={
         @JoinColumn(name = "user_id",referencedColumnName = "id")},

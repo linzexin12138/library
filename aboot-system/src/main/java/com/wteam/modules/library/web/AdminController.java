@@ -4,15 +4,24 @@ import com.wteam.annotation.Log;
 import com.wteam.annotation.permission.PermissionGroup;
 import com.wteam.domain.vo.R;
 import com.wteam.modules.library.domain.criteria.UserRoleQueryCriteria;
+import com.wteam.modules.system.config.LoginType;
+import com.wteam.modules.system.domain.Role;
+import com.wteam.modules.system.domain.User;
+import com.wteam.modules.system.domain.dto.RoleDTO;
+import com.wteam.modules.system.domain.mapper.RoleMapper;
+import com.wteam.modules.system.service.RoleService;
 import com.wteam.modules.system.service.UserService;
+import com.wteam.utils.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.Assert;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
 
 /**
  * @Author: Charles
@@ -30,6 +39,9 @@ public class AdminController {
     private static final Long ADMIN = 1L;
 
     private final UserService userService;
+    private final RoleService roleService;
+    private final RoleMapper roleMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @ApiOperation(value = "查询管理员列表")
     @Log("查询管理员")
@@ -42,23 +54,34 @@ public class AdminController {
 
     @ApiOperation(value = "新增管理员")
     @Log("新增管理员")
-    @GetMapping("/add")
+    @PostMapping("/add")
     @PreAuthorize("@R.check('ADMIN:all','ADMIN:add')")
-    public R add(){
-        return R.ok();
+    public R add(@Validated @RequestBody User resources){
+        Assert.isNull(resources.getId(),"实体ID应为空");
+
+        //设置密码
+        if (StringUtils.isNotBlank(resources.getPassword())){
+            resources.setPassword(passwordEncoder.encode(resources.getPassword()));
+        }else {
+            resources.setPassword(passwordEncoder.encode("123456"));
+        }
+
+        //设置登录类型
+        resources.setLoginType(LoginType.LOGIN_SYSTEM);
+        return R.ok(userService.createAdmin(resources,ADMIN));
     }
 
     @ApiOperation(value = "编辑管理员列表")
     @Log("编辑管理员")
-    @GetMapping("/edit")
-    @PreAuthorize("@R.check('ADMIN:all','ADMIN:delete')")
+    @PostMapping("/edit")
+    @PreAuthorize("@R.check('ADMIN:all','ADMIN:edit')")
     public R edit(){
         return R.ok();
     }
 
     @ApiOperation(value = "批量删除管理员列表")
     @Log("批量删除管理员")
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     @PreAuthorize("@R.check('ADMIN:all','ADMIN:del')")
     public R delete(){
         return R.ok();

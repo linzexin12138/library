@@ -16,4 +16,7 @@ public interface LoginType {
     /*微信用户*/
     int LOGIN_WX=2;
 
+    /*普通用户*/
+    int LOGIN_NORMAL = 3;
+
 }

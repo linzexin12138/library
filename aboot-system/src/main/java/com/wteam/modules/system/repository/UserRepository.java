@@ -3,6 +3,7 @@ package com.wteam.modules.system.repository;
 
 import com.wteam.base.BaseRepository;
 import com.wteam.modules.system.domain.User;
+import org.hibernate.sql.Insert;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
@@ -140,4 +141,7 @@ public interface UserRepository extends BaseRepository<User, Long> {
     int countByRoles(Set<Long> ids);
 
 
+    @Modifying
+    @Query(value = "INSERT INTO sys_users_roles_map VALUES (?1, ?2)", nativeQuery = true)
+    void addUserRoleMap(Long userId, Long roleId);
 }

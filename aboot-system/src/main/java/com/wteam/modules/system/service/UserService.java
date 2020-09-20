@@ -112,4 +112,5 @@ public interface UserService {
     void updateLoginTime(JwtUser jwtUser);
 
 
+    UserDTO createAdmin(User resources, Long roleId);
 }
