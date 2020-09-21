@@ -1,5 +1,6 @@
 package com.wteam.modules.library.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wteam.base.BaseCons;
 import com.wteam.base.BaseEntity;
 import lombok.Getter;
@@ -37,6 +38,7 @@ public class Seat {
     @Column(name = "status")
     private Integer status;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;

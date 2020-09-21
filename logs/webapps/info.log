@@ -80,3 +80,48 @@
 2020/09/21 10:05:28 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:61] Started AbootRun in 20.462 seconds (JVM running for 23.637)
 2020/09/21 10:05:28 INFO [restartedMain] c.w.AbootRun [AbootRun.java:36] link(接口文档):  http://localhost:8800/doc.html
 2020/09/21 10:05:28 INFO [restartedMain] c.w.AbootRun [AbootRun.java:37] link(api导出):   http://localhost:8800/v2/api-docs
+2020/09/21 14:38:47 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:55] Starting AbootRun on LAPTOP-6P4NQTEI with PID 1576 (C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system\target\classes started by lin in C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4)
+2020/09/21 14:38:47 INFO [restartedMain] c.w.AbootRun [SpringApplication.java:655] The following profiles are active: dev
+2020/09/21 14:39:02 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:54] 操作系统---Windows 10
+2020/09/21 14:39:02 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:55] 线程根路径---/C:/Users/lin/Desktop/%e5%9b%be%e4%b9%a6%e9%a6%86%e9%a2%84%e7%ba%a6%e9%a1%b9%e7%9b%ae/%e9%a1%b9%e7%9b%ae/aboot4/aboot-system/target/classes/
+2020/09/21 14:39:02 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:56] 项目目录路径---C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4
+2020/09/21 14:39:02 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:61] 资源存储路径---D:\projectdev\aboot4\
+2020/09/21 14:39:03 INFO [restartedMain] c.w.c.RedisConfig [RedisConfig.java:122] 初始化 -> [Redis CacheErrorHandler]
+2020/09/21 14:39:06 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: FLOOR:all------楼层管理
+2020/09/21 14:39:06 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: FLOOR:add------楼层创建
+2020/09/21 14:39:06 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: FLOOR:edit------楼层编辑
+2020/09/21 14:39:07 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: FLOOR:list------楼层查询
+2020/09/21 14:39:07 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: FLOOR:del------楼层删除
+2020/09/21 14:39:07 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:61] Started AbootRun in 20.823 seconds (JVM running for 23.617)
+2020/09/21 14:39:07 INFO [restartedMain] c.w.AbootRun [AbootRun.java:36] link(接口文档):  http://localhost:8800/doc.html
+2020/09/21 14:39:07 INFO [restartedMain] c.w.AbootRun [AbootRun.java:37] link(api导出):   http://localhost:8800/v2/api-docs
+2020/09/21 14:43:57 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:55] Starting AbootRun on LAPTOP-6P4NQTEI with PID 1576 (C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system\target\classes started by lin in C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4)
+2020/09/21 14:43:57 INFO [restartedMain] c.w.AbootRun [SpringApplication.java:655] The following profiles are active: dev
+2020/09/21 14:44:10 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:54] 操作系统---Windows 10
+2020/09/21 14:44:10 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:55] 线程根路径---/C:/Users/lin/Desktop/%e5%9b%be%e4%b9%a6%e9%a6%86%e9%a2%84%e7%ba%a6%e9%a1%b9%e7%9b%ae/%e9%a1%b9%e7%9b%ae/aboot4/aboot-system/target/classes/
+2020/09/21 14:44:10 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:56] 项目目录路径---C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4
+2020/09/21 14:44:10 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:61] 资源存储路径---D:\projectdev\aboot4\
+2020/09/21 14:44:11 INFO [restartedMain] c.w.c.RedisConfig [RedisConfig.java:122] 初始化 -> [Redis CacheErrorHandler]
+2020/09/21 14:44:13 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:61] Started AbootRun in 15.382 seconds (JVM running for 329.209)
+2020/09/21 14:44:13 INFO [restartedMain] c.w.AbootRun [AbootRun.java:36] link(接口文档):  http://localhost:8800/doc.html
+2020/09/21 14:44:13 INFO [restartedMain] c.w.AbootRun [AbootRun.java:37] link(api导出):   http://localhost:8800/v2/api-docs
+2020/09/21 14:45:03 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:55] Starting AbootRun on LAPTOP-6P4NQTEI with PID 12592 (C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system\target\classes started by lin in C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4)
+2020/09/21 14:45:03 INFO [restartedMain] c.w.AbootRun [SpringApplication.java:655] The following profiles are active: dev
+2020/09/21 14:45:20 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:54] 操作系统---Windows 10
+2020/09/21 14:45:20 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:55] 线程根路径---/C:/Users/lin/Desktop/%e5%9b%be%e4%b9%a6%e9%a6%86%e9%a2%84%e7%ba%a6%e9%a1%b9%e7%9b%ae/%e9%a1%b9%e7%9b%ae/aboot4/aboot-system/target/classes/
+2020/09/21 14:45:20 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:56] 项目目录路径---C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4
+2020/09/21 14:45:20 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:61] 资源存储路径---D:\projectdev\aboot4\
+2020/09/21 14:45:22 INFO [restartedMain] c.w.c.RedisConfig [RedisConfig.java:122] 初始化 -> [Redis CacheErrorHandler]
+2020/09/21 14:45:26 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:61] Started AbootRun in 25.262 seconds (JVM running for 29.942)
+2020/09/21 14:45:26 INFO [restartedMain] c.w.AbootRun [AbootRun.java:36] link(接口文档):  http://localhost:8800/doc.html
+2020/09/21 14:45:26 INFO [restartedMain] c.w.AbootRun [AbootRun.java:37] link(api导出):   http://localhost:8800/v2/api-docs
+2020/09/21 14:52:57 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:55] Starting AbootRun on LAPTOP-6P4NQTEI with PID 12592 (C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system\target\classes started by lin in C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4)
+2020/09/21 14:52:57 INFO [restartedMain] c.w.AbootRun [SpringApplication.java:655] The following profiles are active: dev
+2020/09/21 14:53:06 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:54] 操作系统---Windows 10
+2020/09/21 14:53:06 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:55] 线程根路径---/C:/Users/lin/Desktop/%e5%9b%be%e4%b9%a6%e9%a6%86%e9%a2%84%e7%ba%a6%e9%a1%b9%e7%9b%ae/%e9%a1%b9%e7%9b%ae/aboot4/aboot-system/target/classes/
+2020/09/21 14:53:06 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:56] 项目目录路径---C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4
+2020/09/21 14:53:06 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:61] 资源存储路径---D:\projectdev\aboot4\
+2020/09/21 14:53:07 INFO [restartedMain] c.w.c.RedisConfig [RedisConfig.java:122] 初始化 -> [Redis CacheErrorHandler]
+2020/09/21 14:53:09 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:61] Started AbootRun in 11.644 seconds (JVM running for 493.077)
+2020/09/21 14:53:09 INFO [restartedMain] c.w.AbootRun [AbootRun.java:36] link(接口文档):  http://localhost:8800/doc.html
+2020/09/21 14:53:09 INFO [restartedMain] c.w.AbootRun [AbootRun.java:37] link(api导出):   http://localhost:8800/v2/api-docs
