@@ -9,6 +9,7 @@ import com.wteam.modules.library.service.FloorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.sql.Update;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
@@ -24,7 +25,7 @@ import java.util.Set;
  * @Date: 2020/9/21 10:13
  */
 
-@Api(value="楼层Controller",tags={"系统：楼层操作"})
+@Api(value="楼层Controller",tags={"图书馆：楼层操作"})
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/floor")

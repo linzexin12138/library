@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @SuppressWarnings({"rawtypes"})
-@Api(value="学生Controller",tags={"系统：学生操作"})
+@Api(value="学生Controller",tags={"图书馆：学生操作"})
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/student")

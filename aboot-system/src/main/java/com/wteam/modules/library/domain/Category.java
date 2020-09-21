@@ -28,7 +28,7 @@ public class Category extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(groups = BaseEntity.Update.class)
+    @NotNull(groups = Update.class)
     @Column(name = "id")
     private Long id;
 

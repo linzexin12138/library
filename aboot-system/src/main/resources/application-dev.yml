@@ -82,7 +82,7 @@ spring:
   ##开启热部署
   devtools:
     restart:
-      enabled: true
+      enabled: false
 
 #jwt
 jwt:

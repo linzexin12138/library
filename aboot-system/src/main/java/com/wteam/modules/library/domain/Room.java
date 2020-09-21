@@ -29,7 +29,7 @@ public class Room extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(groups = BaseEntity.Update.class)
+    @NotNull(groups = Update.class)
     @Column(name = "id")
     private Long id;
 
@@ -56,6 +56,9 @@ public class Room extends BaseEntity{
     @JoinColumn(name = "cat_id")
     private Category category;
 
+    /**
+     * 座位
+     */
     @OneToMany(mappedBy = "room")
     private Set<Seat> seats;
 }
