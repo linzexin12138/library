@@ -87,4 +87,15 @@ public class RoomServiceImpl implements RoomService {
     public void download(List<RoomDTO> queryAll, HttpServletResponse response) throws IOException {
 
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void editSeat(Long roomId, List<Long> seatIds) {
+
+        roomRepository.deleteSeat(roomId);
+        if (seatIds.size() > 0){
+            roomRepository.addSeat(roomId,seatIds);
+        }
+
+    }
 }

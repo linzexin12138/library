@@ -8,6 +8,7 @@ import com.wteam.modules.library.repository.FloorRepository;
 import com.wteam.modules.library.service.FloorService;
 import com.wteam.utils.QueryHelper;
 import com.wteam.utils.RedisUtils;
+import com.wteam.utils.StringUtils;
 import com.wteam.utils.ValidUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
@@ -85,6 +86,17 @@ public class FloorServiceImpl implements FloorService {
 
     @Override
     public void download(List<FloorDTO> queryAll, HttpServletResponse response) throws IOException {
+
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void editRoom(Long floorId, List<Long> roomIds) {
+
+        floorRepository.deleteRoom(floorId);
+        if (roomIds.size() > 0){
+            floorRepository.addRoom(floorId,roomIds);
+        }
 
     }
 }

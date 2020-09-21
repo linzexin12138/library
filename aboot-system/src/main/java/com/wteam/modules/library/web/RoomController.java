@@ -6,6 +6,9 @@ import com.wteam.base.BaseEntity;
 import com.wteam.domain.vo.R;
 import com.wteam.modules.library.domain.Room;
 import com.wteam.modules.library.domain.criteria.RoomQueryCriteria;
+import com.wteam.modules.library.domain.dto.FloorSmallDTO;
+import com.wteam.modules.library.domain.dto.RoomDTO;
+import com.wteam.modules.library.domain.dto.RoomSmallDTO;
 import com.wteam.modules.library.service.RoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -68,6 +71,18 @@ public class RoomController {
     @PreAuthorize("@R.check('ROOM:all','ROOM:del')")
     public R delete(@RequestBody Set<Long> ids){
         roomService.delete(ids);
+        return R.ok();
+    }
+
+    @ApiOperation(value = "管理馆号里的座位")
+    @Log("管理馆号里的座位")
+    @PostMapping("editSeat")
+    @PreAuthorize("@R.check('FLOOR:all','FLOOR:edit')")
+    public R editSeat(@Validated @RequestBody RoomSmallDTO room){
+        if (room.getId()!= null){
+            roomService.editSeat(room.getId(), room.getSeatIds());
+
+        }
         return R.ok();
     }
 

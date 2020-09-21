@@ -65,4 +65,5 @@ public interface RoomService {
      */
     void download(List<RoomDTO> queryAll, HttpServletResponse response) throws IOException;
 
+    void editSeat(Long id, List<Long> seatIds);
 }

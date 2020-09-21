@@ -65,4 +65,5 @@ public interface FloorService {
      */
     void download(List<FloorDTO> queryAll, HttpServletResponse response) throws IOException;
 
+    void editRoom(Long floorId, List<Long> roomIds);
 }

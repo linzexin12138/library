@@ -5,17 +5,22 @@ import com.wteam.annotation.permission.PermissionGroup;
 import com.wteam.domain.vo.R;
 import com.wteam.modules.library.domain.Floor;
 import com.wteam.modules.library.domain.criteria.FloorQueryCriteria;
+import com.wteam.modules.library.domain.dto.FloorSmallDTO;
 import com.wteam.modules.library.service.FloorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -66,6 +71,18 @@ public class FloorController {
     @PreAuthorize("@R.check('FLOOR:all','FLOOR:del')")
     public R delete(@RequestBody Set<Long> ids){
         floorService.delete(ids);
+        return R.ok();
+    }
+
+    @ApiOperation(value = "管理楼层里的馆号")
+    @Log("管理楼层里的馆号")
+    @PostMapping("editRoom")
+    @PreAuthorize("@R.check('FLOOR:all','FLOOR:edit')")
+    public R editRoom(@Validated @RequestBody FloorSmallDTO floor){
+        if (floor.getId()!= null){
+            floorService.editRoom(floor.getId(), floor.getRoomIds());
+
+        }
         return R.ok();
     }
 
