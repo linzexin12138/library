@@ -63,6 +63,7 @@ public class SeatServiceImpl implements SeatService {
         ValidUtil.notNull(seat,Seat.ENTITY_NAME,"id",resources.getId());
         assert seat != null;
         seat.setName(resources.getName());
+        seat.setStatus(resources.getStatus());
         seatRepository.save(seat);
     }
 

@@ -42,8 +42,7 @@ public class Seat extends BaseEntity{
     /**
      * 状态:0为不可预约，1为可预约，2为已预约
      */
-    @NotNull
-    @Column(name = "status")
+    @Column(columnDefinition = "tinyint(1)  default 1 comment \'状态:0为不可预约，1为可预约，2为已预约\'")
     private Integer status;
 
     @JsonIgnore
