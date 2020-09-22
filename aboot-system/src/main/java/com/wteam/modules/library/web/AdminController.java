@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  */
 
 @SuppressWarnings({"rawtypes"})
-@Api(value="管理员Controller",tags={"图书馆：管理员操作"})
+@Api(value="管理员Controller",tags={"图书馆：管理员管理"})
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/admin")

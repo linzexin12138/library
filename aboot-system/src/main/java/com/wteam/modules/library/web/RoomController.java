@@ -2,18 +2,14 @@ package com.wteam.modules.library.web;
 
 import com.wteam.annotation.Log;
 import com.wteam.annotation.permission.PermissionGroup;
-import com.wteam.base.BaseEntity;
 import com.wteam.domain.vo.R;
 import com.wteam.modules.library.domain.Room;
 import com.wteam.modules.library.domain.criteria.RoomQueryCriteria;
-import com.wteam.modules.library.domain.dto.FloorSmallDTO;
-import com.wteam.modules.library.domain.dto.RoomDTO;
 import com.wteam.modules.library.domain.dto.RoomSmallDTO;
 import com.wteam.modules.library.service.RoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.sql.Update;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;

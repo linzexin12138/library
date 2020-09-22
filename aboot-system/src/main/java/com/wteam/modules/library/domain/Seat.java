@@ -1,6 +1,5 @@
 package com.wteam.modules.library.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.wteam.base.BaseCons;
 import com.wteam.base.BaseEntity;

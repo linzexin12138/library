@@ -99,5 +99,4 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
     int logicDeleteInBatchById(Iterable<ID> ids);
 
 
-
 }

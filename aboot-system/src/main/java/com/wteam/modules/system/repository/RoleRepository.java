@@ -33,7 +33,7 @@ public interface RoleRepository extends BaseRepository<Role, Long> {
      * @return /
      */
     @Query(value = "select count(1) from sys_role r, sys_roles_depts_map d where " +
-            "r.id = d.user_id and d.dept_id in ?1",nativeQuery = true)
+            "r.id = d.role_id and d.dept_id in ?1",nativeQuery = true)
     int countByDepts(Set<Long> deptIds);
 
     /**
