@@ -81,7 +81,6 @@ public class FloorServiceImpl implements FloorService {
     @Override
     public List<FloorDTO> queryAll(FloorQueryCriteria criteria) {
         return  floorMapper.toDto(floorRepository.findAll((root, cq, cb) -> QueryHelper.andPredicate(root, criteria, cb)));
-
     }
 
     @Override

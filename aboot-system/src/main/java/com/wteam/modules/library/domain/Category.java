@@ -1,5 +1,6 @@
 package com.wteam.modules.library.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.wteam.base.BaseCons;
 import com.wteam.base.BaseEntity;
 import lombok.Getter;
@@ -39,6 +40,7 @@ public class Category extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
+    @JsonIgnoreProperties({"category"})
     @OneToMany(mappedBy = "category")
     private Set<Room> rooms;
 }

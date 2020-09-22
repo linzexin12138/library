@@ -1,6 +1,7 @@
 package com.wteam.modules.library.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.wteam.base.BaseCons;
 import com.wteam.base.BaseEntity;
 import lombok.Getter;
@@ -43,7 +44,7 @@ public class Room extends BaseEntity{
     /**
      *楼层
      */
-    @JsonIgnore
+    @JsonIgnoreProperties({"rooms"})
     @ManyToOne
     @JoinColumn(name = "floor_id")
     private Floor floor;
@@ -51,7 +52,7 @@ public class Room extends BaseEntity{
     /**
      * 类型
      */
-    @JsonIgnore
+    @JsonIgnoreProperties({"rooms"})
     @ManyToOne
     @JoinColumn(name = "cat_id")
     private Category category;
@@ -59,6 +60,7 @@ public class Room extends BaseEntity{
     /**
      * 座位
      */
+    @JsonIgnoreProperties({"room"})
     @OneToMany(mappedBy = "room")
     private Set<Seat> seats;
 }

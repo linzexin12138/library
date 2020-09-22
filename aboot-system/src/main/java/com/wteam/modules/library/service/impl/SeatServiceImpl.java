@@ -83,7 +83,6 @@ public class SeatServiceImpl implements SeatService {
     @Override
     public List<SeatDTO> queryAll(SeatQueryCriteria criteria) {
         return  seatMapper.toDto(seatRepository.findAll((root, cq, cb) -> QueryHelper.andPredicate(root, criteria, cb)));
-
     }
 
     @Override

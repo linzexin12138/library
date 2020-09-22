@@ -81,7 +81,6 @@ public class FloorController {
     public R editRoom(@Validated @RequestBody FloorSmallDTO floor){
         if (floor.getId()!= null){
             floorService.editRoom(floor.getId(), floor.getRoomIds());
-
         }
         return R.ok();
     }

@@ -1,6 +1,7 @@
 package com.wteam.modules.library.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.wteam.base.BaseCons;
 import com.wteam.base.BaseEntity;
 import lombok.Getter;
@@ -45,7 +46,7 @@ public class Seat extends BaseEntity{
     @Column(columnDefinition = "tinyint(1)  default 1 comment \'状态:0为不可预约，1为可预约，2为已预约\'")
     private Integer status;
 
-    @JsonIgnore
+    @JsonIgnoreProperties({"seats"})
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;

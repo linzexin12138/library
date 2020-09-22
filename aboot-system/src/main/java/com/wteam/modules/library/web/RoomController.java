@@ -24,22 +24,22 @@ import java.io.IOException;
 import java.util.Set;
 
 /**
- * 房间 控制层
+ * 馆号 控制层
  * @Author: Charles
  * @Date: 2020/9/21 10:13
  */
 
-@Api(value="房间Controller",tags={"图书馆：房间操作"})
+@Api(value="馆号Controller",tags={"图书馆：馆号操作"})
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/room")
-@PermissionGroup(value = "ROOM", aliasPrefix = "房间")
+@PermissionGroup(value = "ROOM", aliasPrefix = "馆号")
 public class RoomController {
 
     private final RoomService roomService;
 
-    @ApiOperation(value = "查询房间")
-    @Log("查询房间")
+    @ApiOperation(value = "查询馆号")
+    @Log("查询馆号")
     @GetMapping(value = "/get")
     @PreAuthorize("@R.check('USER:all','USER:list','ROOM:all','ROOM:list')")
     public R getRooms(RoomQueryCriteria criteria){
@@ -47,8 +47,8 @@ public class RoomController {
     }
 
 
-    @ApiOperation(value = "新增房间")
-    @Log("新增房间")
+    @ApiOperation(value = "新增馆号")
+    @Log("新增馆号")
     @PostMapping("add")
     @PreAuthorize("@R.check('ROOM:all','ROOM:add')")
     public R create(@Validated @RequestBody Room resources){
@@ -56,8 +56,8 @@ public class RoomController {
         return R.ok(roomService.create(resources));
     }
 
-    @ApiOperation(value = "修改房间")
-    @Log("修改房间")
+    @ApiOperation(value = "修改馆号")
+    @Log("修改馆号")
     @PostMapping("edit")
     @PreAuthorize("@R.check('ROOM:all','ROOM:edit')")
     public R edit(@Validated(Room.Update.class) @RequestBody Room resources){
@@ -65,8 +65,8 @@ public class RoomController {
         return R.ok();
     }
 
-    @ApiOperation(value = "删除房间")
-    @Log("删除房间")
+    @ApiOperation(value = "删除馆号")
+    @Log("删除馆号")
     @PostMapping("del")
     @PreAuthorize("@R.check('ROOM:all','ROOM:del')")
     public R delete(@RequestBody Set<Long> ids){
