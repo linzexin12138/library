@@ -37,8 +37,7 @@ public class LibOrderTimeServiceImpl implements LibOrderTimeService {
         LibOrderTime libOrderTime = libOrderTimeRepository.findById(resources.getId()).orElse(null);
         ValidUtil.notNull(libOrderTime,LibOrderTime.ENTITY_NAME,"id",resources.getId());
         assert libOrderTime != null;
-        libOrderTime.setStartAt(resources.getStartAt());
-        libOrderTime.setEndAt(resources.getEndAt());
+        libOrderTime.setName(resources.getName());
         libOrderTimeRepository.save(libOrderTime);
     }
 
@@ -51,6 +50,6 @@ public class LibOrderTimeServiceImpl implements LibOrderTimeService {
 
     @Override
     public List<LibOrderTime> queryAll() {
-        return libOrderTimeRepository.findAllByOrderByStartAtAsc();
+        return libOrderTimeRepository.findAll();
     }
 }

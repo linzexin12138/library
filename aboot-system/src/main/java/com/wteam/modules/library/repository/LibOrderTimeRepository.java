@@ -10,5 +10,5 @@ import java.util.List;
  * @Date: 2020/9/22 20:09
  */
 public interface LibOrderTimeRepository extends BaseRepository<LibOrderTime,Long> {
-    List<LibOrderTime> findAllByOrderByStartAtAsc();
+    List<LibOrderTime> findAll();
 }

@@ -21,7 +21,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Where(clause = BaseCons.SOFT_DELETE)
-@Table(name = "lib_order_time")
+@Table(name = "order_time")
 public class LibOrderTime extends BaseEntity {
 
     public static final String ENTITY_NAME = "预约时间段";
@@ -33,18 +33,13 @@ public class LibOrderTime extends BaseEntity {
     private Long id;
 
     /**
-     * 开始时间
+     * 预约时间段
      */
-    @ApiModelProperty(value = "开始时间", hidden = true)
-    @NotNull(message = "开始时间不能为空")
-    @Column(nullable = false, columnDefinition = "timestamp not null comment '开始时间'")
-    private Timestamp startAt;
+    @ApiModelProperty(value = "预约时间段", hidden = true)
+    @NotNull(message = "预约时间段不能为空")
+    @Column(nullable = false)
+    private String name;
 
-    /**
-     * 结束时间
-     */
-    @ApiModelProperty(value = "结束时间", hidden = true)
-    @NotNull(message = "结束时间不能为空")
-    @Column(nullable = false, columnDefinition = "timestamp not null comment '结束时间'")
-    private Timestamp endAt;
+
+
 }

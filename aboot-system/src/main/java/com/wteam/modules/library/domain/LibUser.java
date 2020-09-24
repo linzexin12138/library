@@ -1,7 +1,16 @@
 package com.wteam.modules.library.domain;
 
-import lombok.Data;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
+import com.wteam.base.BaseCons;
+import com.wteam.base.BaseEntity;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Where;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -9,47 +18,40 @@ import javax.validation.constraints.Pattern;
  * @Date: 2020/9/22 12:48
  */
 
-@Data
-public class LibUser{
+@Entity
+@Getter
+@Setter
+@Where(clause = BaseCons.SOFT_DELETE)
+@Table(name = "lib_user")
+public class LibUser extends BaseEntity{
 
     public final static String ENTITY_NAME ="学生账号";
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull(groups = BaseEntity.Update.class)
+    @Column(name = "id")
     private Long id;
-
-
-    /**
-     * 用户名
-     */
-    @NotBlank(message = "用户名不能为空")
-    private String username;
-
-
-    /**
-     * 昵称
-     */
-    private String nickname;
-
-    /**
-     * 密码
-     */
-    @NotBlank(message = "密码不能为空")
-    private String password;
-
-    /**
-     * 邮箱
-     */
-    @Pattern(regexp = "([a-z0-9A-Z]+[-|.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}",message = "格式错误")
-    private String email;
-
-    /**
-     * 电话
-     */
-    private String phone;
 
     /**
      * 学号
      */
+    @Column(name = "student_id")
     private String studentId;
 
+    /**
+     * 信用分
+     */
+    @Column(name = "credit_score",columnDefinition = "int default 100 comment \'信用分\'")
+    private Integer creditScore;
 
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(name = "order_status", columnDefinition = "tinyint(1)  default 1 comment \'状态:0为未预约，1为已预约\'")
+    private Boolean orderStatus;
+
+    public void copy(LibUser source){
+        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
+    }
 }
