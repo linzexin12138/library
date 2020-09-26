@@ -1,35 +1,43 @@
-//package com.wteam.modules.library.schedule;
-//
-//import lombok.extern.slf4j.Slf4j;
-//import org.springframework.scheduling.annotation.Scheduled;
-//import org.springframework.stereotype.Component;
-//
-//import java.sql.*;
-//
-///**
-// * @Author: Charles
-// * @Date: 2020/9/24 16:43
-// */
-//@Component
-//@Slf4j
-//public class OrderRecordSchedule {
-//
+package com.wteam.modules.library.schedule;
+
+import com.wteam.modules.library.service.LibUserService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import java.sql.*;
+
+/**
+ * @Author: Charles
+ * @Date: 2020/9/24 16:43
+ */
+@Component
+@Slf4j
+@RequiredArgsConstructor
+public class OrderRecordSchedule {
+
 //    private String url = "jdbc:mysql://localhost:3306/library?rewriteBatchedStatements=true";
 //    private String user = "root";
 //    private String password = "root";
-//
-//    /**
-//     * 每天0点生成新的座位预定记录，只有userId字段是空的
-//     */
-//    @Scheduled(cron="0 0 0 1/1 * ? ")
-//    public void createOrderRecord() {
-//
-//        insertOrderRecord();
-//
-//        Thread current = Thread.currentThread();
-//        System.out.println("定时任务1:"+current.getId());
-//        log.info("OrderRecordSchedule.executeFileDownLoadTask 定时任务1:"+current.getId()+ ",name:"+current.getName());
-//    }
+
+    private final LibUserService libUserService;
+
+    /**
+     * 0 0 23 * * ?
+     * 每天11点更新lib_user表的order_status字段
+     */
+    @Scheduled(cron = "0 0 23 * * ?")
+    public void updateUserStatus() {
+
+        libUserService.updateStatus();
+
+        Thread current = Thread.currentThread();
+        System.out.println("定时任务1:" + current.getId());
+        log.info("OrderRecordSchedule.executeFileDownLoadTask 定时任务1:" + current.getId() + ",name:" + current.getName());
+    }
+
+
 //
 //
 //
@@ -81,4 +89,4 @@
 //            }
 //        }
 //    }
-//}
+}

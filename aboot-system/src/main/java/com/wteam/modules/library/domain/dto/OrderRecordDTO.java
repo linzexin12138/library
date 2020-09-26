@@ -39,4 +39,7 @@ public class OrderRecordDTO implements Serializable {
     @ApiModelProperty( "座位id")
     private Long seatId;
 
+    /** 座位状态*/
+    @ApiModelProperty( "座位状态")
+    private Integer status;
 }

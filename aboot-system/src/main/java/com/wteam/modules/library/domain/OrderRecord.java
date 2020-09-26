@@ -29,6 +29,16 @@ public class OrderRecord extends BaseEntity {
 
     public final static String ENTITY_NAME ="预约记录";
 
+    public OrderRecord() {
+    }
+
+    public OrderRecord(Timestamp date, Long orderTimeId, Long seatId, Long userId) {
+        this.date = date;
+        this.orderTimeId = orderTimeId;
+        this.seatId = seatId;
+        this.userId = userId;
+    }
+
     @Id
     @NotNull(groups = Update.class)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,6 +68,10 @@ public class OrderRecord extends BaseEntity {
     @Column(name = "user_id")
     private Long userId;
 
+
+    @ApiModelProperty("预约记录的状态")
+    @Column(name = "status", columnDefinition = "tinyint(1)  default 0 comment \'状态:0为未签到，1为已签到，3为已爽约，4为已取消\'")
+    private Integer status;
 
     public void copy(OrderRecord source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

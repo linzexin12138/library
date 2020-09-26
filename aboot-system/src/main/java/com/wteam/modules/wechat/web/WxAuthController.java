@@ -99,7 +99,7 @@ public class WxAuthController {
         user.setLoginType(LoginType.LOGIN_WX);
         user.setEnabled(true);
         user.setLastLoginTime(Timestamp.valueOf(LocalDateTime.now()));
-        user.setRoles(Sets.newHashSet(new Role(2L)));
+        user.setRoles(Sets.newHashSet(new Role(4L)));
 
         //判断是否注册
         if (wxUser.getUid()==null) {

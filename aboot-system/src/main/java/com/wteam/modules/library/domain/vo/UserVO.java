@@ -44,12 +44,12 @@ public class UserVO {
     /**
      * 电话
      */
-    @NotNull
+    @NotBlank
     private String phone;
 
     /**
      * 学号
      */
-    @NotNull
+    @NotBlank
     private String studentId;
 }

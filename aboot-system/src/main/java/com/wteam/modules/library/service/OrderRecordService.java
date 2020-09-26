@@ -11,6 +11,7 @@ package com.wteam.modules.library.service;
 import com.wteam.modules.library.domain.OrderRecord;
 import com.wteam.modules.library.domain.dto.OrderRecordDTO;
 import com.wteam.modules.library.domain.criteria.OrderRecordQueryCriteria;
+import com.wteam.modules.library.domain.vo.OrderRecordVO;
 import org.springframework.data.domain.Pageable;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -50,6 +51,8 @@ public interface OrderRecordService{
     * @return OrderRecordDTO
     */
     OrderRecordDTO create(OrderRecord resources);
+
+    void create(OrderRecordVO orderRecordVO);
 
 
     /**

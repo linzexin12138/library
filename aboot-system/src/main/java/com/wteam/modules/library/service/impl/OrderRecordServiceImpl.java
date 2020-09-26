@@ -9,6 +9,7 @@
 package com.wteam.modules.library.service.impl;
 
 
+import com.wteam.modules.library.domain.vo.OrderRecordVO;
 import com.wteam.modules.library.service.OrderRecordService;
 import com.wteam.modules.library.domain.OrderRecord;
 import com.wteam.modules.library.domain.dto.OrderRecordDTO;
@@ -19,12 +20,14 @@ import com.wteam.exception.BadRequestException;
 import com.wteam.utils.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.cache.annotation.*;
 import lombok.RequiredArgsConstructor;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -44,6 +47,8 @@ public class OrderRecordServiceImpl implements OrderRecordService {
     private final OrderRecordMapper orderRecordMapper;
 
     private final RedisUtils redisUtils;
+
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public Map<String,Object> queryAll(OrderRecordQueryCriteria criteria, Pageable pageable){
@@ -72,6 +77,23 @@ public class OrderRecordServiceImpl implements OrderRecordService {
         return orderRecordMapper.toDto(orderRecord);
 
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class, timeout = 30)
+    public void create(OrderRecordVO orderRecordVO) {
+
+        StringBuilder stringBuilder = new StringBuilder("INSERT INTO order_record (date,order_time_id,seat_id,user_id) VALUES ");
+        @NotNull Timestamp date = orderRecordVO.getDate();
+        @NotNull Long seatId = orderRecordVO.getSeatId();
+        Long userId = orderRecordVO.getUserId();
+        List<Long> orderTimeIdList = orderRecordVO.getOrderTimeIdList();
+        for (Long orderTimeId : orderTimeIdList){
+            stringBuilder.append("('" + date + "'," + orderTimeId + "," + seatId + "," + userId + "),");
+        }
+        String sql = stringBuilder.substring(0, stringBuilder.length() - 1);
+        jdbcTemplate.execute(sql);
+    }
+
 
 
     @Override
