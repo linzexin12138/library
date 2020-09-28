@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface LibOrderTimeRepository extends BaseRepository<LibOrderTime,Long> {
     List<LibOrderTime> findAll();
+
 }

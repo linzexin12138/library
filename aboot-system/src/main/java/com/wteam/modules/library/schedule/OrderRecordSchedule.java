@@ -1,12 +1,10 @@
 package com.wteam.modules.library.schedule;
 
-import com.wteam.modules.library.service.LibUserService;
+import com.wteam.modules.library.service.UserExtraService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.sql.*;
 
 /**
  * @Author: Charles
@@ -21,16 +19,16 @@ public class OrderRecordSchedule {
 //    private String user = "root";
 //    private String password = "root";
 
-    private final LibUserService libUserService;
+    private final UserExtraService userExtraService;
 
     /**
      * 0 0 23 * * ?
-     * 每天11点更新lib_user表的order_status字段
+     * 每天11点更新user_extra表的order_status字段
      */
     @Scheduled(cron = "0 0 23 * * ?")
     public void updateUserStatus() {
 
-        libUserService.updateStatus();
+        userExtraService.updateStatus();
 
         Thread current = Thread.currentThread();
         System.out.println("定时任务1:" + current.getId());

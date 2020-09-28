@@ -27,4 +27,13 @@ public class OrderRecordQueryCriteria{
 
     @Query
     private Timestamp date;
+
+    @Query
+    private Long orderTimeId;
+
+    @Query
+    private Long seatId;
+
+    @Query
+    private Integer status;
 }

@@ -22,6 +22,8 @@ import java.sql.Timestamp;
 */
 public interface OrderRecordRepository extends BaseRepository<OrderRecord, Long> {
 
+    OrderRecord findByDateAndOrderTimeIdAndSeatIdAndUserId(Timestamp date, Long orderTimeId, Long seatId, Long userId);
+
 //    @Query(value = "SELECT COUNT(1) FROM order_record WHERE date = ?1 AND order_time_id = ?2 AND seat_id = ?3", nativeQuery = true)
 //    Long findOrderRecord(Timestamp date, Long orderTimeId, Long seatId);
 

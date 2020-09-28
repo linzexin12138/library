@@ -74,4 +74,6 @@ public interface OrderRecordService{
    * @throws IOException /
    */
    void download(List<OrderRecordDTO> queryAll, HttpServletResponse response) throws IOException;
+
+    void cancelOrder(OrderRecord resource);
 }

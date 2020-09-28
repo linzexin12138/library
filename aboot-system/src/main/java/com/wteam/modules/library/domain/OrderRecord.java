@@ -65,6 +65,7 @@ public class OrderRecord extends BaseEntity {
 
     /** 用户id */
     @ApiModelProperty( "用户id")
+    @NotNull(groups = Update.class)
     @Column(name = "user_id")
     private Long userId;
 

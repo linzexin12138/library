@@ -9,9 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 /**
  * @Author: Charles
@@ -22,10 +20,10 @@ import javax.validation.constraints.Pattern;
 @Getter
 @Setter
 @Where(clause = BaseCons.SOFT_DELETE)
-@Table(name = "lib_user")
-public class LibUser extends BaseEntity{
+@Table(name = "user_extra")
+public class UserExtra extends BaseEntity{
 
-    public final static String ENTITY_NAME ="学生账号";
+    public final static String ENTITY_NAME ="用户账号扩展信息";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +49,7 @@ public class LibUser extends BaseEntity{
     @Column(name = "order_status", columnDefinition = "tinyint(1)  default 0 comment \'状态:0为未预约，1为已预约今天的座位，2为已预约明天的座位，3为已预约今明两天的座位\'")
     private Integer orderStatus;
 
-    public void copy(LibUser source){
+    public void copy(UserExtra source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

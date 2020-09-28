@@ -11,6 +11,8 @@ import java.util.Set;
  */
 public interface LibOrderTimeService {
 
+    LibOrderTime findById(Long id);
+
     /**
      * create
      * @param resources

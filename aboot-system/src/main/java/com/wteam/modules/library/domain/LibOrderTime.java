@@ -10,6 +10,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.time.LocalTime;
 
 
 /**
@@ -36,9 +37,17 @@ public class LibOrderTime extends BaseEntity {
      * 预约时间段
      */
     @ApiModelProperty(value = "预约时间段", hidden = true)
-    @NotNull(message = "预约时间段不能为空")
+    @NotNull(message = "预约时间名称不能为空")
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    @NotNull(message = "预约开始时间不能为空")
+    private LocalTime starTime;
+
+    @Column(nullable = false)
+    @NotNull(message = "预约结束时间不能为空")
+    private LocalTime endTime;
 
 
 

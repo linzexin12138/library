@@ -6,6 +6,8 @@ import com.wteam.modules.library.service.LibOrderTimeService;
 import com.wteam.utils.ValidUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,12 +28,19 @@ public class LibOrderTimeServiceImpl implements LibOrderTimeService {
     private final LibOrderTimeRepository libOrderTimeRepository;
 
     @Override
+    @Cacheable(key = "'id:'+#p0")
+    public LibOrderTime findById(Long id) {
+        return libOrderTimeRepository.findById(id).orElse(null);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public LibOrderTime create(LibOrderTime resources) {
         return libOrderTimeRepository.save(resources);
     }
 
     @Override
+    @CacheEvict(key = "'id:' + #p0.id")
     @Transactional(rollbackFor = Exception.class)
     public void update(LibOrderTime resources) {
         LibOrderTime libOrderTime = libOrderTimeRepository.findById(resources.getId()).orElse(null);

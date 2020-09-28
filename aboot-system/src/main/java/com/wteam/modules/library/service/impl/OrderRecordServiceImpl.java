@@ -16,7 +16,6 @@ import com.wteam.modules.library.domain.dto.OrderRecordDTO;
 import com.wteam.modules.library.domain.criteria.OrderRecordQueryCriteria;
 import com.wteam.modules.library.domain.mapper.OrderRecordMapper;
 import com.wteam.modules.library.repository.OrderRecordRepository;
-import com.wteam.exception.BadRequestException;
 import com.wteam.utils.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -125,6 +124,14 @@ public class OrderRecordServiceImpl implements OrderRecordService {
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void cancelOrder(OrderRecord resource) {
+        OrderRecord orderRecord = orderRecordRepository.findByDateAndOrderTimeIdAndSeatIdAndUserId(resource.getDate(), resource.getOrderTimeId(), resource.getSeatId(), resource.getUserId());
+        orderRecord.setStatus(4);
+        orderRecordRepository.save(orderRecord);
     }
 
 

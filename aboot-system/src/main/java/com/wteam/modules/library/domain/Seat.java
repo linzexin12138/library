@@ -40,9 +40,9 @@ public class Seat extends BaseEntity{
     private String name;
 
     /**
-     * 状态:0为不可预约，1为可预约，2为已预约  !!!请修改为Boolean status，标识该座位是否激活
+     * 状态:0为禁用，1可用
      */
-    @Column(columnDefinition = "tinyint(1)  default 1 comment \'状态:0为不可预约，1为可预约，2为已预约\'")
+    @Column(columnDefinition = "tinyint(1)  default 1 comment \'状态:0为禁用，1为可用\'")
     private Integer status;
 
     @JsonIgnoreProperties({"seats"})
