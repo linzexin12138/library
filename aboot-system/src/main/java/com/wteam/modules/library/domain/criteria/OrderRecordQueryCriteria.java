@@ -13,6 +13,8 @@ import lombok.Data;
 import java.sql.Timestamp;
 import com.wteam.annotation.Query;
 import java.util.List;
+import java.util.Set;
+
 import io.swagger.annotations.ApiParam;
 /**
 * 预约记录 搜索类.
@@ -36,4 +38,7 @@ public class OrderRecordQueryCriteria{
 
     @Query
     private Integer status;
+
+    @Query(type = Query.Type.IN, propName="seatId")
+    private Set<Long> seatIds;
 }

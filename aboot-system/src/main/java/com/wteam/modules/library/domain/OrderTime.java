@@ -23,7 +23,7 @@ import java.time.LocalTime;
 @Setter
 @Where(clause = BaseCons.SOFT_DELETE)
 @Table(name = "order_time")
-public class LibOrderTime extends BaseEntity {
+public class OrderTime extends BaseEntity {
 
     public static final String ENTITY_NAME = "预约时间段";
 

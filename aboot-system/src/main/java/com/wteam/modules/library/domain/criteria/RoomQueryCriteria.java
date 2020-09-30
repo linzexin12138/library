@@ -11,6 +11,9 @@ import lombok.Data;
 public class RoomQueryCriteria {
 
     @Query(type = Query.Type.INNER_LIKE)
+    private Long id;
+
+    @Query(type = Query.Type.INNER_LIKE)
     private String name;
 
 }

@@ -46,6 +46,12 @@ public interface OrderRecordService{
     OrderRecordDTO findDTOById(Long id);
 
     /**
+     * 根据ID查询
+     * @param id ID
+     * @return OrderRecord
+     */
+    OrderRecord findById(Long id);
+    /**
     * 创建
     * @param resources /
     * @return OrderRecordDTO

@@ -22,10 +22,9 @@ public class OrderRecordSchedule {
     private final UserExtraService userExtraService;
 
     /**
-     * 0 0 23 * * ?
-     * 每天11点更新user_extra表的order_status字段
+     * 每天0点更新user_extra表的order_status字段
      */
-    @Scheduled(cron = "0 0 23 * * ?")
+    @Scheduled(cron = "0 0 0 * * ? ")
     public void updateUserStatus() {
 
         userExtraService.updateStatus();

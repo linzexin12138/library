@@ -71,7 +71,7 @@ public class OrderRecord extends BaseEntity {
 
 
     @ApiModelProperty("预约记录的状态")
-    @Column(name = "status", columnDefinition = "tinyint(1)  default 0 comment \'状态:0为未签到，1为已签到，3为已爽约，4为已取消\'")
+    @Column(name = "status", columnDefinition = "tinyint(1)  default 0 comment \'状态:0为未签到，1为已签到，2为已签退，3为已爽约，4为已取消\'")
     private Integer status;
 
     public void copy(OrderRecord source){

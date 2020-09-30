@@ -10,6 +10,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 /**
  * 座位类
@@ -49,4 +50,6 @@ public class Seat extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
+
+
 }

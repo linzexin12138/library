@@ -69,6 +69,14 @@ public class OrderRecordServiceImpl implements OrderRecordService {
     }
 
     @Override
+    @Cacheable(key = "'id:'+#p0")
+    public OrderRecord findById(Long id) {
+        OrderRecord orderRecord = orderRecordRepository.findById(id).orElse(null);
+        ValidUtil.notNull(orderRecord,OrderRecord.ENTITY_NAME,"id",id);
+        return orderRecord;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class, timeout = 30)
     public OrderRecordDTO create(OrderRecord resources) {
 
