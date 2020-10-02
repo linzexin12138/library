@@ -6,12 +6,10 @@ import com.wteam.exception.BadRequestException;
 import com.wteam.modules.library.domain.OrderRecord;
 import com.wteam.modules.library.domain.OrderTime;
 import com.wteam.modules.library.domain.UserExtra;
+import com.wteam.modules.library.domain.UserOrder;
 import com.wteam.modules.library.domain.criteria.OrderRecordQueryCriteria;
 import com.wteam.modules.library.domain.vo.OrderRecordVO;
-import com.wteam.modules.library.service.OrderTimeService;
-import com.wteam.modules.library.service.OrderRecordService;
-import com.wteam.modules.library.service.SeatService;
-import com.wteam.modules.library.service.UserExtraService;
+import com.wteam.modules.library.service.*;
 import com.wteam.modules.library.utils.TimeUtil;
 import com.wteam.utils.SecurityUtils;
 import io.swagger.annotations.Api;
@@ -40,14 +38,10 @@ public class OrderController {
 
     private final UserExtraService userExtraService;
     private final OrderRecordService orderRecordService;
+    private final UserOrderService userOrderService;
     private final OrderTimeService orderTimeService;
     private final SeatService seatService;
     private final PasswordEncoder passwordEncoder;
-
-    private static final int ORDER_NOTHING = 0;
-    private static final int ORDER_TODAY = 1;
-    private static final int ORDER_TOMORROW = 2;
-    private static final int ORDER_TODAY_AND_TOMORROW = 3;
 
     private static final int ORDER_NO_SIGN_IN = 0;
     private static final int ORDER_SIGN_IN = 1;
@@ -62,11 +56,14 @@ public class OrderController {
     public R order(@Validated @RequestBody OrderRecordVO orderRecordVO){
 
         Long userId = SecurityUtils.getId();
-
         UserExtra userExtra = userExtraService.findByUserId(userId);
 
         if (userExtra.getCreditScore() < 80){
             throw new BadRequestException("信用分低于80分不可以预约座位");
+        }
+
+        if (orderRecordVO.getSeatIdList().size() != orderRecordVO.getOrderTimeIdList().size()){
+            throw new BadRequestException("参数错误");
         }
 
         LocalDateTime orderTime = orderRecordVO.getDate().toLocalDateTime();
@@ -79,38 +76,17 @@ public class OrderController {
             return R.ok("只能预约今天或者明天的座位");
         }
 
-        Integer orderStatus = userExtra.getOrderStatus();
-
-
-        //用户一天只能预约一次，之后要签退才可以接着预约
-        if ((orderStatus == ORDER_TODAY || orderStatus == ORDER_TODAY_AND_TOMORROW) &&  compare == 0L){
-            return R.ok("您已预约了今天的座位，请使用完后再预约");
-        }else if ((orderStatus == ORDER_TOMORROW || orderStatus == ORDER_TODAY_AND_TOMORROW) && compare == -1L){
-            return R.ok("您已预约了明天的座位，请使用完后再预约");
-        } else {
-            try{
-                orderRecordService.create(orderRecordVO);
-            }catch (Exception e){
-                throw new BadRequestException("已被其他人预约了");
-            }
-
-            //设置用户预约状态
-            if (compare == 0){
-                if (orderStatus == ORDER_NOTHING){
-                    userExtra.setOrderStatus(ORDER_TODAY);
-                }else {
-                    userExtra.setOrderStatus(ORDER_TODAY_AND_TOMORROW);
-                }
-            }else{
-                if (orderStatus == ORDER_NOTHING){
-                    userExtra.setOrderStatus(ORDER_TOMORROW);
-                }else {
-                    userExtra.setOrderStatus(ORDER_TODAY_AND_TOMORROW);
-                }
-            }
-            userExtraService.update(userExtra);
-            return R.ok("预约成功");
+        if (userOrderService.checkRepeat(userId, orderRecordVO.getDate(),orderRecordVO.getOrderTimeIdList())){
+            throw new BadRequestException("一个时间段只能预定一个座位");
         }
+
+        try{
+            orderRecordService.create(orderRecordVO);
+        }catch (Exception e){
+            throw new BadRequestException("已被其他人预约了");
+        }
+
+        return R.ok("预约成功");
     }
 
     @ApiOperation(value = "签到")
@@ -186,7 +162,7 @@ public class OrderController {
         }
 
         if (nowTime.isAfter(endTime)){
-            throw new BadRequestException("");
+            throw new BadRequestException("预约时间已结束");
         }
 
         orderRecord.setId(orderRecordId);
@@ -199,17 +175,35 @@ public class OrderController {
     @Log("取消预约")
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("cancel")
-    public R cancel(@Validated(UserExtra.Update.class) @RequestBody OrderRecord resource){
-        //如果当前时间比预约时间晚的话，则扣除一定的信用分
-        //取消预约后更新用户的预约状态
+    public R cancel(Long orderRecordId){
 
-//        OrderRecord orderRecord = orderRecordService.findById(orderRecordId);
-//        if ()
-//
-//        OrderTime orderTime = orderTimeService.findById(resource.getOrderTimeId());
-//        UserExtra userExtra = userExtraService.findByUserId(resource.getUserId());
-//        userExtra.setOrderStatus(0);
-//        orderRecordService.cancelOrder(resource);
+        OrderRecord orderRecord = orderRecordService.findByIdAndUserId(orderRecordId,SecurityUtils.getId());
+        if (orderRecord == null){
+            throw new BadRequestException("没有该预约记录");
+        }
+
+        if (orderRecord.getStatus() != 0){
+            throw new BadRequestException("该预约不可取消");
+        }
+
+        LocalTime starTime = orderRecord.getOrderTime().getStarTime();
+        LocalTime endTime = orderRecord.getOrderTime().getEndTime();
+        LocalTime nowTime = LocalTime.now();
+
+        UserExtra userExtra = userExtraService.findById(SecurityUtils.getId());
+
+        if (TimeUtil.isHistory(orderRecord.getDate()) || nowTime.isAfter(endTime)){
+            throw new BadRequestException("该预约已过期");
+        }else if (TimeUtil.isToday(orderRecord.getDate())){
+            if (nowTime.isAfter(starTime)){
+                userExtra.setCreditScore(userExtra.getCreditScore() - 3);
+            }
+        }
+
+        orderRecord.setStatus(4);
+        orderRecordService.updateStatus(orderRecord);
+        userExtraService.updateStatus(userExtra);
+
         return R.ok("取消成功");
     }
 

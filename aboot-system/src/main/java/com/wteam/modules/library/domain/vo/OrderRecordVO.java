@@ -19,8 +19,8 @@ public class OrderRecordVO {
     @NotNull
     private Timestamp date;
 
-    @NotNull
-    private Long seatId;
+    @NotEmpty
+    private List<Long> seatIdList;
 
     @NotNull
     private Long userId;

@@ -91,10 +91,12 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 
         StringBuilder stringBuilder = new StringBuilder("INSERT INTO order_record (date,order_time_id,seat_id,user_id) VALUES ");
         Timestamp date = orderRecordVO.getDate();
-        Long seatId = orderRecordVO.getSeatId();
         Long userId = orderRecordVO.getUserId();
+        List<Long> seatIdList = orderRecordVO.getSeatIdList();
         List<Long> orderTimeIdList = orderRecordVO.getOrderTimeIdList();
-        for (Long orderTimeId : orderTimeIdList){
+        for (int i = 0; i < orderTimeIdList.size(); i++){
+            Long orderTimeId = orderTimeIdList.get(i);
+            Long seatId = seatIdList.get(i);
             stringBuilder.append("('" + date + "'," + orderTimeId + "," + seatId + "," + userId + "),");
         }
         String sql = stringBuilder.substring(0, stringBuilder.length() - 1);

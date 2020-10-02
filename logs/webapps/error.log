@@ -1,5 +1,10 @@
-2020/10/01 11:35:02 ERROR [http-nio-8800-exec-9] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 已被其他人预约了
-	at com.wteam.modules.library.web.OrderController.order(OrderController.java:86)
-	at com.wteam.modules.library.web.OrderController$$FastClassBySpringCGLIB$$800a016f.invoke(<generated>)
+2020/10/02 17:41:47 ERROR [http-nio-8800-exec-9] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 验证码不存在或已过期
+	at com.wteam.modules.security.web.AuthController.login(AuthController.java:87)
+	at com.wteam.modules.security.web.AuthController$$FastClassBySpringCGLIB$$ead14f1e.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+
+2020/10/02 17:43:50 ERROR [http-nio-8800-exec-7] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 请先配置生成器
+	at com.wteam.service.impl.GeneratorServiceImpl.generator(GeneratorServiceImpl.java:179)
+	at com.wteam.service.impl.GeneratorServiceImpl$$FastClassBySpringCGLIB$$b17df350.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 
