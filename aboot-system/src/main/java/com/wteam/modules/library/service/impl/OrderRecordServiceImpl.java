@@ -90,8 +90,8 @@ public class OrderRecordServiceImpl implements OrderRecordService {
     public void create(OrderRecordVO orderRecordVO) {
 
         StringBuilder stringBuilder = new StringBuilder("INSERT INTO order_record (date,order_time_id,seat_id,user_id) VALUES ");
-        @NotNull Timestamp date = orderRecordVO.getDate();
-        @NotNull Long seatId = orderRecordVO.getSeatId();
+        Timestamp date = orderRecordVO.getDate();
+        Long seatId = orderRecordVO.getSeatId();
         Long userId = orderRecordVO.getUserId();
         List<Long> orderTimeIdList = orderRecordVO.getOrderTimeIdList();
         for (Long orderTimeId : orderTimeIdList){
@@ -137,10 +137,18 @@ public class OrderRecordServiceImpl implements OrderRecordService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void cancelOrder(OrderRecord resource) {
-        OrderRecord orderRecord = orderRecordRepository.findByDateAndOrderTimeIdAndSeatIdAndUserId(resource.getDate(), resource.getOrderTimeId(), resource.getSeatId(), resource.getUserId());
-        orderRecord.setStatus(4);
+//        OrderRecord orderRecord = orderRecordRepository.findByDateAndOrderTimeIdAndSeatIdAndUserId(resource.getDate(), resource.getOrderTimeId(), resource.getSeatId(), resource.getUserId());
+//        orderRecord.setStatus(4);
+//        orderRecordRepository.save(orderRecord);
+    }
+
+    @Override
+    public void updateStatus(OrderRecord orderRecord) {
         orderRecordRepository.save(orderRecord);
     }
 
-
+    @Override
+    public OrderRecord findByIdAndUserId(Long orderRecordId, Long userId) {
+        return orderRecordRepository.findByIdAndUserId(orderRecordId, userId);
+    }
 }

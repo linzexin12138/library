@@ -32,13 +32,6 @@ public class OrderRecord extends BaseEntity {
     public OrderRecord() {
     }
 
-    public OrderRecord(Timestamp date, Long orderTimeId, Long seatId, Long userId) {
-        this.date = date;
-        this.orderTimeId = orderTimeId;
-        this.seatId = seatId;
-        this.userId = userId;
-    }
-
     @Id
     @NotNull(groups = Update.class)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,11 +44,11 @@ public class OrderRecord extends BaseEntity {
     @Column(name = "date")
     private Timestamp date;
 
-    /** 预约时间段id */
-    @ApiModelProperty( "预约时间段id")
-    @NotNull
-    @Column(name = "order_time_id")
-    private Long orderTimeId;
+    /** 预约时间段 */
+    @ApiModelProperty( "预约时间段")
+    @ManyToOne
+    @JoinColumn(name = "order_time_id")
+    private OrderTime orderTime;
 
     /** 座位id */
     @ApiModelProperty( "座位id")
@@ -69,7 +62,7 @@ public class OrderRecord extends BaseEntity {
     @Column(name = "user_id")
     private Long userId;
 
-
+    //（提前离开的才需要签退）
     @ApiModelProperty("预约记录的状态")
     @Column(name = "status", columnDefinition = "tinyint(1)  default 0 comment \'状态:0为未签到，1为已签到，2为已签退，3为已爽约，4为已取消\'")
     private Integer status;

@@ -12,6 +12,7 @@ import com.wteam.modules.library.service.OrderTimeService;
 import com.wteam.modules.library.service.OrderRecordService;
 import com.wteam.modules.library.service.SeatService;
 import com.wteam.modules.library.service.UserExtraService;
+import com.wteam.modules.library.utils.TimeUtil;
 import com.wteam.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,9 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 
 /**
  * @Author: Charles
@@ -62,21 +63,29 @@ public class OrderController {
 
         Long userId = SecurityUtils.getId();
 
-        UserExtra userExtra = userExtraService.findById(userId);
+        UserExtra userExtra = userExtraService.findByUserId(userId);
 
-        Timestamp date = orderRecordVO.getDate();
+        if (userExtra.getCreditScore() < 80){
+            throw new BadRequestException("信用分低于80分不可以预约座位");
+        }
 
+        LocalDateTime orderTime = orderRecordVO.getDate().toLocalDateTime();
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime localTime = LocalDateTime.of(now.toLocalDate(), LocalTime.MIN);
-        LocalDateTime orderTime = date.toLocalDateTime();
+
+        Duration duration = Duration.between(orderTime, now);
+        long compare = duration.toDays();
+
+        if (compare != 0 || compare != -1){
+            return R.ok("只能预约今天或者明天的座位");
+        }
 
         Integer orderStatus = userExtra.getOrderStatus();
-        int compare = localTime.compareTo(orderTime);
+
 
         //用户一天只能预约一次，之后要签退才可以接着预约
-        if ((orderStatus == ORDER_TODAY || orderStatus == ORDER_TODAY_AND_TOMORROW) &&  compare == 0){
+        if ((orderStatus == ORDER_TODAY || orderStatus == ORDER_TODAY_AND_TOMORROW) &&  compare == 0L){
             return R.ok("您已预约了今天的座位，请使用完后再预约");
-        }else if ((orderStatus == ORDER_TOMORROW || orderStatus == ORDER_TODAY_AND_TOMORROW) && compare == -1){
+        }else if ((orderStatus == ORDER_TOMORROW || orderStatus == ORDER_TODAY_AND_TOMORROW) && compare == -1L){
             return R.ok("您已预约了明天的座位，请使用完后再预约");
         } else {
             try{
@@ -106,23 +115,80 @@ public class OrderController {
 
     @ApiOperation(value = "签到")
     @Log("签到")
+    @Transactional(rollbackFor = Exception.class)
     @PostMapping("signIn")
     public R signIn(@RequestParam Long orderRecordId){
+        //如果预约订单的创建时间在预约时间段之间，则在订单创建之时将订单状态设置为已签到并提醒用户
 
-        OrderRecord orderRecord = orderRecordService.findById(orderRecordId);
-        OrderTime orderTime = orderTimeService.findById(orderRecord.getOrderTimeId());
+        OrderRecord orderRecord = orderRecordService.findByIdAndUserId(orderRecordId, SecurityUtils.getId());
+
+        if (orderRecord == null){
+            throw new BadRequestException("没有该预约记录");
+        }
+        //只有预约订单的状态为未签到才可以进行签到
+        if (orderRecord.getStatus() != 0){
+            throw new BadRequestException("该预约已经不可以签到了");
+        }
+
+        LocalTime orderStarTime = orderRecord.getOrderTime().getStarTime();
+        LocalTime orderEndTime = orderRecord.getOrderTime().getEndTime();
+        LocalTime checkStartTime = orderStarTime.minusMinutes(10L);
+
+        LocalTime orderCreateTime = orderRecord.getCreatedAt().toLocalDateTime().toLocalTime();
+        LocalTime nowTime = LocalTime.now();
+
+        Long userId = SecurityUtils.getId();
+        UserExtra userExtra = userExtraService.findByUserId(userId);
+
+        if (!TimeUtil.isToday(orderRecord.getDate())){
+            throw new BadRequestException("还没到预约当天，不可以签到");
+        }else if(nowTime.isAfter(orderEndTime)){
+            throw new BadRequestException("签到时间已经过");
+        }else if(orderStarTime.isBefore(orderCreateTime) || orderStarTime.equals(orderCreateTime)){
+            //当用户预约座位时正好在预约时间段内，则在预约后十分钟内进行签到不扣分
+            if (nowTime.isAfter(orderCreateTime.plusMinutes(10L))){
+                userExtra.setCreditScore(userExtra.getCreditScore() - 1);
+            }
+        }else if(nowTime.isBefore(checkStartTime)){
+            throw new BadRequestException("预约时间的前十分钟才开始签到");
+        }else if(nowTime.isAfter(orderStarTime.plusMinutes(10L))){
+            //在预约开始时间后十分钟进行签到则要扣除1分信用分
+            userExtra.setCreditScore(userExtra.getCreditScore() - 1);
+        }
+
         orderRecord.setId(orderRecordId);
         orderRecord.setStatus(ORDER_SIGN_IN);
-        orderRecordService.update(orderRecord);
+        orderRecordService.updateStatus(orderRecord);
+        userExtraService.updateCreditScore(userExtra);
         return R.ok();
     }
 
-    @ApiOperation(value = "签退")
-    @Log("签退")
+    @ApiOperation(value = "提前离开")
+    @Log("提前离开")
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("signOut")
     public R signOut(@RequestParam Long orderRecordId){
-        OrderRecord orderRecord = new OrderRecord();
+        OrderRecord orderRecord = orderRecordService.findByIdAndUserId(orderRecordId,SecurityUtils.getId());
+        if (orderRecord == null){
+            throw new BadRequestException("没有该预约记录");
+        }
+
+        //只有签到后才可以提前离开
+        if (orderRecord.getStatus() != 1){
+            throw new BadRequestException("只有签到后才可以提前离开");
+        }
+
+        LocalTime endTime = orderRecord.getOrderTime().getEndTime();
+        LocalTime nowTime = LocalTime.now();
+
+        if (!TimeUtil.isToday(orderRecord.getDate())){
+            throw new BadRequestException("还没到预约当天");
+        }
+
+        if (nowTime.isAfter(endTime)){
+            throw new BadRequestException("");
+        }
+
         orderRecord.setId(orderRecordId);
         orderRecord.setStatus(ORDER_SIGN_OUT);
         orderRecordService.update(orderRecord);
@@ -136,12 +202,14 @@ public class OrderController {
     public R cancel(@Validated(UserExtra.Update.class) @RequestBody OrderRecord resource){
         //如果当前时间比预约时间晚的话，则扣除一定的信用分
         //取消预约后更新用户的预约状态
+
+//        OrderRecord orderRecord = orderRecordService.findById(orderRecordId);
 //        if ()
 //
 //        OrderTime orderTime = orderTimeService.findById(resource.getOrderTimeId());
-        UserExtra userExtra = userExtraService.findById(resource.getUserId());
-        userExtra.setOrderStatus(0);
-        orderRecordService.cancelOrder(resource);
+//        UserExtra userExtra = userExtraService.findByUserId(resource.getUserId());
+//        userExtra.setOrderStatus(0);
+//        orderRecordService.cancelOrder(resource);
         return R.ok("取消成功");
     }
 

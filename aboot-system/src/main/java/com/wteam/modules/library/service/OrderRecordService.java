@@ -82,4 +82,8 @@ public interface OrderRecordService{
    void download(List<OrderRecordDTO> queryAll, HttpServletResponse response) throws IOException;
 
     void cancelOrder(OrderRecord resource);
+
+    void updateStatus(OrderRecord orderRecord);
+
+    OrderRecord findByIdAndUserId(Long orderRecordId, Long userId);
 }
