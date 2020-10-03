@@ -7,9 +7,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * @Author: Charles
- * @Date: 2020/9/24 16:43
+ * @author Charles
+ * @since 2020/9/24 16:43
  */
+
 @Component
 @Slf4j
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class OrderRecordSchedule {
     @Scheduled(cron = "0 0 0 * * ? ")
     public void updateUserStatus() {
 
-        userExtraService.updateStatus();
+     //   userExtraService.updateStatus();
 
         Thread current = Thread.currentThread();
         System.out.println("定时任务1:" + current.getId());

@@ -1,5 +1,7 @@
 package com.wteam.modules.library.domain;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.wteam.base.BaseCons;
 import com.wteam.base.BaseEntity;
 import lombok.Getter;
@@ -29,6 +31,9 @@ public class CreditScoreLog extends BaseEntity{
     @Column(name = "id")
     private Long id;
 
+
+    private String reason;
+
     @NotNull
     @Column(name = "user_id")
     private Long userId;
@@ -37,4 +42,7 @@ public class CreditScoreLog extends BaseEntity{
     @Column(name = "credit_score")
     private Integer creditScore;
 
+    public void copy(CreditScoreLog source){
+        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
+    }
 }
