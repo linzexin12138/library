@@ -1,11 +1,12 @@
 package com.wteam.modules.library.domain.vo;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import net.bytebuddy.implementation.bind.annotation.Empty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -17,12 +18,12 @@ import java.util.List;
 public class OrderRecordVO {
 
     @NotNull
-    private Timestamp date;
+    private LocalDate date;
 
     @NotEmpty
     private List<Long> seatIdList;
 
-    @NotNull
+    @ApiModelProperty(hidden = true)
     private Long userId;
 
     @NotEmpty

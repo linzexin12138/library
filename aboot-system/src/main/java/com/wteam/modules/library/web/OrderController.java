@@ -3,26 +3,24 @@ package com.wteam.modules.library.web;
 import com.wteam.annotation.Log;
 import com.wteam.domain.vo.R;
 import com.wteam.exception.BadRequestException;
-import com.wteam.modules.library.domain.OrderRecord;
-import com.wteam.modules.library.domain.OrderTime;
-import com.wteam.modules.library.domain.UserExtra;
-import com.wteam.modules.library.domain.UserOrder;
+import com.wteam.modules.library.domain.*;
 import com.wteam.modules.library.domain.criteria.OrderRecordQueryCriteria;
 import com.wteam.modules.library.domain.vo.OrderRecordVO;
 import com.wteam.modules.library.service.*;
 import com.wteam.modules.library.utils.TimeUtil;
+import com.wteam.utils.DateUtil;
+import com.wteam.utils.RedisUtils;
 import com.wteam.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.time.*;
+import java.util.List;
 
 /**
  * @author Charles
@@ -38,9 +36,8 @@ public class OrderController {
     private final UserExtraService userExtraService;
     private final OrderRecordService orderRecordService;
     private final UserOrderService userOrderService;
-    private final OrderTimeService orderTimeService;
-    private final SeatService seatService;
-    private final PasswordEncoder passwordEncoder;
+    private final CreditScoreLogService creditScoreService;
+    private final RedisUtils redisUtils;
 
     private static final int ORDER_NO_SIGN_IN = 0;
     private static final int ORDER_SIGN_IN = 1;
@@ -65,13 +62,9 @@ public class OrderController {
             throw new BadRequestException("参数错误");
         }
 
-        LocalDateTime orderTime = orderRecordVO.getDate().toLocalDateTime();
-        LocalDateTime now = LocalDateTime.now();
+        LocalDate date = orderRecordVO.getDate();
 
-        Duration duration = Duration.between(orderTime, now);
-        long compare = duration.toDays();
-
-        if (compare != 0 || compare != -1){
+        if (!TimeUtil.isToday(date) && !TimeUtil.isTomorrow(date)){
             return R.ok("只能预约今天或者明天的座位");
         }
 
@@ -79,21 +72,27 @@ public class OrderController {
             throw new BadRequestException("一个时间段只能预定一个座位");
         }
 
-        try{
-            orderRecordService.create(orderRecordVO);
-        }catch (Exception e){
-            throw new BadRequestException("已被其他人预约了");
-        }
+        List<OrderRecord> orderRecordList;
+        orderRecordVO.setUserId(userId);
+        orderRecordList = orderRecordService.create(orderRecordVO);
+        userOrderService.create(orderRecordList);
 
+        for (OrderRecord orderRecord : orderRecordList){
+            LocalDateTime dateTime = LocalDateTime.of(orderRecord.getDate(), orderRecord.getOrderTime().getEndTime());
+            Long orderTimeStamp = DateUtil.getTimeStamp(dateTime);
+            Long nowTimeStamp = DateUtil.getTimeStamp(LocalDateTime.now());
+            Long expireTime = orderTimeStamp - nowTimeStamp;
+            redisUtils.set("orderId:"+orderRecord.getId(),orderRecord.getStatus(),expireTime);
+        }
         return R.ok("预约成功");
     }
 
+    @SuppressWarnings("Duplicates")
     @ApiOperation(value = "签到")
     @Log("签到")
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("signIn")
     public R signIn(@RequestParam Long orderRecordId){
-        //如果预约订单的创建时间在预约时间段之间，则在订单创建之时将订单状态设置为已签到并提醒用户
 
         OrderRecord orderRecord = orderRecordService.findByIdAndUserId(orderRecordId, SecurityUtils.getId());
 
@@ -114,6 +113,7 @@ public class OrderController {
 
         Long userId = SecurityUtils.getId();
         UserExtra userExtra = userExtraService.findByUserId(userId);
+        CreditScoreLog creditScoreLog = null;
 
         if (!TimeUtil.isToday(orderRecord.getDate())){
             throw new BadRequestException("还没到预约当天，不可以签到");
@@ -122,20 +122,36 @@ public class OrderController {
         }else if(orderStarTime.isBefore(orderCreateTime) || orderStarTime.equals(orderCreateTime)){
             //当用户预约座位时正好在预约时间段内，则在预约后十分钟内进行签到不扣分
             if (nowTime.isAfter(orderCreateTime.plusMinutes(10L))){
-                userExtra.setCreditScore(userExtra.getCreditScore() - 1);
+                int score = userExtra.getCreditScore() - 1;
+                userExtra.setCreditScore(score);
+
+                creditScoreLog = new CreditScoreLog();
+                creditScoreLog.setUserId(userId);
+                creditScoreLog.setReason("迟到十分钟，扣除1分信用分");
+                creditScoreLog.setCreditScore(score);
             }
         }else if(nowTime.isBefore(checkStartTime)){
             throw new BadRequestException("预约时间的前十分钟才开始签到");
         }else if(nowTime.isAfter(orderStarTime.plusMinutes(10L))){
             //在预约开始时间后十分钟进行签到则要扣除1分信用分
-            userExtra.setCreditScore(userExtra.getCreditScore() - 1);
+            int score = userExtra.getCreditScore() - 1;
+            userExtra.setCreditScore(score);
+
+            creditScoreLog = new CreditScoreLog();
+            creditScoreLog.setUserId(userId);
+            creditScoreLog.setReason("迟到十分钟，扣除1分信用分");
+            creditScoreLog.setCreditScore(score);
         }
 
         orderRecord.setId(orderRecordId);
         orderRecord.setStatus(ORDER_SIGN_IN);
         orderRecordService.updateStatus(orderRecord);
         userExtraService.updateCreditScore(userExtra);
-        return R.ok();
+
+        if (creditScoreLog != null){
+            creditScoreService.create(creditScoreLog);
+        }
+        return R.ok("签到成功");
     }
 
     @ApiOperation(value = "提前离开")
@@ -164,10 +180,10 @@ public class OrderController {
             throw new BadRequestException("预约时间已结束");
         }
 
-        orderRecord.setId(orderRecordId);
         orderRecord.setStatus(ORDER_SIGN_OUT);
         orderRecordService.update(orderRecord);
-        return R.ok();
+        userOrderService.deleteByOrderId(orderRecord.getId());
+        return R.ok("成功");
     }
 
     @ApiOperation(value = "取消预约")
@@ -189,19 +205,37 @@ public class OrderController {
         LocalTime endTime = orderRecord.getOrderTime().getEndTime();
         LocalTime nowTime = LocalTime.now();
 
-        UserExtra userExtra = userExtraService.findById(SecurityUtils.getId());
+        UserExtra userExtra = userExtraService.findByUserId(SecurityUtils.getId());
+        CreditScoreLog creditScoreLog = null;
 
-        if (TimeUtil.isHistory(orderRecord.getDate()) || nowTime.isAfter(endTime)){
+        //预约时间在今天以前的为过期
+        if (TimeUtil.isHistory(orderRecord.getDate())){
             throw new BadRequestException("该预约已过期");
         }else if (TimeUtil.isToday(orderRecord.getDate())){
+            //如果取消时预约已经开始了，则扣除信用分
             if (nowTime.isAfter(starTime)){
-                userExtra.setCreditScore(userExtra.getCreditScore() - 3);
+                int score = userExtra.getCreditScore() - 3;
+                userExtra.setCreditScore(score);
+
+                creditScoreLog = new CreditScoreLog();
+                creditScoreLog.setUserId(SecurityUtils.getId());
+                creditScoreLog.setReason("取消预约时间过晚，扣除3分信用分");
+                creditScoreLog.setCreditScore(score);
+            }
+            //预约时间已经过期
+            if (nowTime.isAfter(endTime)){
+                throw new BadRequestException("该预约已过期");
             }
         }
 
-        orderRecord.setStatus(4);
+        orderRecord.setStatus(ORDER_CANCEL);
         orderRecordService.updateStatus(orderRecord);
-        userExtraService.updateStatus(userExtra);
+        userOrderService.deleteByOrderId(orderRecord.getId());
+
+        if (creditScoreLog != null){
+            userExtraService.updateStatus(userExtra);
+            creditScoreService.create(creditScoreLog);
+        }
 
         return R.ok("取消成功");
     }
@@ -219,7 +253,7 @@ public class OrderController {
     @ApiOperation(value = "预约情况")
     @Log("预约情况")
     @GetMapping("orderInfo")
-    public R orderInfo(@RequestParam Timestamp date){
+    public R orderInfo(@RequestParam LocalDate date){
         OrderRecordQueryCriteria criteria = new OrderRecordQueryCriteria();
         criteria.setDate(date);
         return R.ok(orderRecordService.queryAll(criteria));
@@ -228,7 +262,7 @@ public class OrderController {
     @ApiOperation(value = "某馆号的座位预约情况")
     @Log("某馆号的座位预约情况")
     @GetMapping("seatInfo")
-    public R seatInfo(@RequestParam Timestamp date, @RequestParam Long roomId, Pageable pageable){
+    public R seatInfo(@RequestParam LocalDate date, @RequestParam Long roomId, Pageable pageable){
 
 //        List<Long> seatId = seatService.getIdListByRoomId(roomId);
 

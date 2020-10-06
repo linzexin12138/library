@@ -58,7 +58,7 @@ public interface OrderRecordService{
     */
     OrderRecordDTO create(OrderRecord resources);
 
-    void create(OrderRecordVO orderRecordVO);
+    List<OrderRecord> create(OrderRecordVO orderRecordVO);
 
 
     /**
@@ -81,9 +81,8 @@ public interface OrderRecordService{
    */
    void download(List<OrderRecordDTO> queryAll, HttpServletResponse response) throws IOException;
 
-    void cancelOrder(OrderRecord resource);
-
     void updateStatus(OrderRecord orderRecord);
 
     OrderRecord findByIdAndUserId(Long orderRecordId, Long userId);
+
 }

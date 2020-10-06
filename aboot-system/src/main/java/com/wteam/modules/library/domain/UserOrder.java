@@ -10,7 +10,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 /**
  * @Author: Charles
@@ -21,7 +21,9 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Where(clause = BaseCons.SOFT_DELETE)
-@Table(name = "user_order")
+@Table(name = "user_order", uniqueConstraints =
+        {@UniqueConstraint(columnNames = {"date", "order_time_id",
+                "seat_id"})})
 public class UserOrder extends BaseEntity {
 
     public final static String ENTITY_NAME ="用户预约信息";
@@ -33,16 +35,23 @@ public class UserOrder extends BaseEntity {
     private Long id;
 
     @NotNull
-    private Timestamp date;
+    private LocalDate date;
 
     @NotNull
+    @Column(name = "seat_id")
     private Long seatId;
 
     @NotNull
+    @Column(name = "order_time_id")
     private Long orderTimeId;
 
     @NotNull
+    @Column(name = "user_id")
     private Long userId;
+
+    @NotNull
+    @Column(name = "order_id")
+    private Long orderId;
 
     public void copy(UserOrder source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

@@ -9,6 +9,8 @@
 package com.wteam.modules.library.service.impl;
 
 
+import com.wteam.exception.BadRequestException;
+import com.wteam.modules.library.domain.OrderTime;
 import com.wteam.modules.library.domain.vo.OrderRecordVO;
 import com.wteam.modules.library.service.OrderRecordService;
 import com.wteam.modules.library.domain.OrderRecord;
@@ -16,6 +18,7 @@ import com.wteam.modules.library.domain.dto.OrderRecordDTO;
 import com.wteam.modules.library.domain.criteria.OrderRecordQueryCriteria;
 import com.wteam.modules.library.domain.mapper.OrderRecordMapper;
 import com.wteam.modules.library.repository.OrderRecordRepository;
+import com.wteam.modules.library.service.OrderTimeService;
 import com.wteam.utils.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,8 +29,9 @@ import org.springframework.cache.annotation.*;
 import lombok.RequiredArgsConstructor;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 /**
@@ -42,6 +46,8 @@ import java.util.*;
 public class OrderRecordServiceImpl implements OrderRecordService {
 
     private final OrderRecordRepository orderRecordRepository;
+
+    private final OrderTimeService orderTimeService;
 
     private final OrderRecordMapper orderRecordMapper;
 
@@ -69,7 +75,7 @@ public class OrderRecordServiceImpl implements OrderRecordService {
     }
 
     @Override
-    @Cacheable(key = "'id:'+#p0")
+    @Cacheable(key = "'findById:'+#p0")
     public OrderRecord findById(Long id) {
         OrderRecord orderRecord = orderRecordRepository.findById(id).orElse(null);
         ValidUtil.notNull(orderRecord,OrderRecord.ENTITY_NAME,"id",id);
@@ -86,21 +92,46 @@ public class OrderRecordServiceImpl implements OrderRecordService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class, timeout = 30)
-    public void create(OrderRecordVO orderRecordVO) {
+    @Transactional(rollbackFor = Exception.class)
+    public List<OrderRecord> create(OrderRecordVO orderRecordVO) {
 
-        StringBuilder stringBuilder = new StringBuilder("INSERT INTO order_record (date,order_time_id,seat_id,user_id) VALUES ");
-        Timestamp date = orderRecordVO.getDate();
+        LocalDate date = orderRecordVO.getDate();
         Long userId = orderRecordVO.getUserId();
         List<Long> seatIdList = orderRecordVO.getSeatIdList();
         List<Long> orderTimeIdList = orderRecordVO.getOrderTimeIdList();
+
+        List<OrderRecord> list = new ArrayList<>();
+        OrderRecord orderRecord = null;
         for (int i = 0; i < orderTimeIdList.size(); i++){
             Long orderTimeId = orderTimeIdList.get(i);
+            OrderTime orderTime = orderTimeService.findById(orderTimeId);
+            LocalDateTime dateTime = LocalDateTime.of(date, orderTime.getEndTime());
+            if (dateTime.isBefore(LocalDateTime.now())){
+                String start = orderTime.getStarTime().toString();
+                String end = orderTime.getEndTime().toString();
+                throw new BadRequestException("该时间段 " + start + " - " + end + "已不可预约");
+            }
             Long seatId = seatIdList.get(i);
-            stringBuilder.append("('" + date + "'," + orderTimeId + "," + seatId + "," + userId + "),");
+            orderRecord = new OrderRecord();
+            orderRecord.setDate(date);
+            orderRecord.setUserId(userId);
+            orderRecord.setSeatId(seatId);
+            orderRecord.setOrderTime(orderTime);
+            orderRecord.setStatus(0);
+            list.add(orderRecord);
         }
-        String sql = stringBuilder.substring(0, stringBuilder.length() - 1);
-        jdbcTemplate.execute(sql);
+
+        return orderRecordRepository.saveAll(list);
+
+//        StringBuilder stringBuilder = new StringBuilder("INSERT INTO order_record (date,order_time_id,seat_id,user_id) VALUES ");
+
+//        for (int i = 0; i < orderTimeIdList.size(); i++){
+//            Long orderTimeId = orderTimeIdList.get(i);
+//            Long seatId = seatIdList.get(i);
+//            stringBuilder.append("('" + date + "'," + orderTimeId + "," + seatId + "," + userId + "),");
+//        }
+//        String sql = stringBuilder.substring(0, stringBuilder.length() - 1);
+//        jdbcTemplate.execute(sql);
     }
 
 
@@ -112,6 +143,8 @@ public class OrderRecordServiceImpl implements OrderRecordService {
         OrderRecord orderRecord = orderRecordRepository.findById(resources.getId()).orElse(null);
         ValidUtil.notNull( orderRecord,OrderRecord.ENTITY_NAME,"id",resources.getId());
 
+        redisUtils.del("orderRecord::findById:" + orderRecord.getId());
+        redisUtils.del("orderRecord::findByIdAndUserId:" + orderRecord.getId() + orderRecord.getUserId());
         orderRecord.copy(resources);
         orderRecordRepository.save(orderRecord);
     }
@@ -120,6 +153,8 @@ public class OrderRecordServiceImpl implements OrderRecordService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteAll(Set<Long> ids) {
         redisUtils.delByKeys("orderRecord::id:",ids);
+        redisUtils.delByKeys("orderRecord::findById:",ids);
+
         orderRecordRepository.logicDeleteInBatchById(ids);
     }
 
@@ -138,19 +173,16 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void cancelOrder(OrderRecord resource) {
-//        OrderRecord orderRecord = orderRecordRepository.findByDateAndOrderTimeIdAndSeatIdAndUserId(resource.getDate(), resource.getOrderTimeId(), resource.getSeatId(), resource.getUserId());
-//        orderRecord.setStatus(4);
-//        orderRecordRepository.save(orderRecord);
-    }
-
-    @Override
     public void updateStatus(OrderRecord orderRecord) {
+        redisUtils.del("orderRecord::findById:" + orderRecord.getId());
+        redisUtils.del("orderRecord::findByIdAndUserId:" + orderRecord.getId() + orderRecord.getUserId());
         orderRecordRepository.save(orderRecord);
     }
 
     @Override
+    @Cacheable(key = "'findByIdAndUserId:'+#p0 +#p1")
     public OrderRecord findByIdAndUserId(Long orderRecordId, Long userId) {
         return orderRecordRepository.findByIdAndUserId(orderRecordId, userId);
     }
-}
+
+  }

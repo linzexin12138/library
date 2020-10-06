@@ -11,7 +11,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 /**
  * @Author: Charles
@@ -22,9 +22,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Where(clause = BaseCons.SOFT_DELETE)
-@Table(name = "order_record", uniqueConstraints =
-        {@UniqueConstraint(columnNames = {"date", "order_time_id",
-                "seat_id"})})
+@Table(name = "order_record")
 public class OrderRecord extends BaseEntity {
 
     public final static String ENTITY_NAME ="预约记录";
@@ -42,7 +40,7 @@ public class OrderRecord extends BaseEntity {
     @ApiModelProperty( "预约日期")
     @NotNull
     @Column(name = "date")
-    private Timestamp date;
+    private LocalDate date;
 
     /** 预约时间段 */
     @ApiModelProperty( "预约时间段")
@@ -64,7 +62,7 @@ public class OrderRecord extends BaseEntity {
 
     //（提前离开的才需要签退）
     @ApiModelProperty("预约记录的状态")
-    @Column(name = "status", columnDefinition = "tinyint(1)  default 0 comment \'状态:0为未签到，1为已签到，2为已签退，3为已爽约，4为已取消\'")
+    @Column(name = "status", columnDefinition = "tinyint(1) default 0 comment \'状态:0为未签到，1为已签到，2为已签退，3为已爽约，4为已取消\'")
     private Integer status;
 
     public void copy(OrderRecord source){

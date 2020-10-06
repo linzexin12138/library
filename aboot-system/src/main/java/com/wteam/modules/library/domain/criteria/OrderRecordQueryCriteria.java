@@ -10,9 +10,9 @@ package com.wteam.modules.library.domain.criteria;
 
 
 import lombok.Data;
-import java.sql.Timestamp;
 import com.wteam.annotation.Query;
-import java.util.List;
+
+import java.time.LocalDate;
 import java.util.Set;
 
 import io.swagger.annotations.ApiParam;
@@ -28,7 +28,7 @@ public class OrderRecordQueryCriteria{
     private Long userId;
 
     @Query
-    private Timestamp date;
+    private LocalDate date;
 
     @Query
     private Long orderTimeId;

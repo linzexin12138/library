@@ -27,7 +27,7 @@ import java.util.Map;
  */
 @Data
 @SuppressWarnings("unchecked")
-@ApiModel(value = "相应体",description = "通用返回对象")
+@ApiModel(value = "响应体",description = "通用返回对象")
 public class R<T> implements Serializable {
 
     /**

@@ -13,7 +13,7 @@ import com.wteam.base.BaseRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 /**
 * 预约记录 存储层.
@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 */
 public interface OrderRecordRepository extends BaseRepository<OrderRecord, Long> {
 
-    OrderRecord findByDateAndOrderTimeIdAndSeatIdAndUserId(Timestamp date, Long orderTimeId, Long seatId, Long userId);
+    OrderRecord findByDateAndOrderTimeIdAndSeatIdAndUserId(LocalDate date, Long orderTimeId, Long seatId, Long userId);
 
     OrderRecord findByIdAndUserId(Long orderRecordId, Long userId);
 

@@ -9,8 +9,9 @@
 package com.wteam.modules.library.domain.dto;
 
 import lombok.Data;
-import java.sql.Timestamp;
 import java.io.Serializable;
+import java.time.LocalDate;
+
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -25,7 +26,7 @@ public class OrderRecordDTO implements Serializable {
 
     /** 预约日期 */
     @ApiModelProperty( "预约日期")
-    private Timestamp date;
+    private LocalDate date;
 
     /** 预约时间段id */
     @ApiModelProperty( "预约时间段id")

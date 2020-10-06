@@ -23,10 +23,10 @@ public class OrderRecordSchedule {
     private final UserExtraService userExtraService;
 
     /**
-     * 每天0点更新user_extra表的order_status字段
+     * 每天1点删除user_order表里date字段的日期为昨天的数据
      */
-    @Scheduled(cron = "0 0 0 * * ? ")
-    public void updateUserStatus() {
+    @Scheduled(cron = "0 0 1 * * ? ")
+    public void cleanUserOrder() {
 
      //   userExtraService.updateStatus();
 
