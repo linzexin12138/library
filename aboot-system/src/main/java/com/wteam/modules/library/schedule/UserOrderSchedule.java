@@ -1,6 +1,6 @@
 package com.wteam.modules.library.schedule;
 
-import com.wteam.modules.library.service.UserExtraService;
+import com.wteam.modules.library.service.UserOrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -14,13 +14,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class OrderRecordSchedule {
+public class UserOrderSchedule {
 
 //    private String url = "jdbc:mysql://localhost:3306/library?rewriteBatchedStatements=true";
 //    private String user = "root";
 //    private String password = "root";
 
-    private final UserExtraService userExtraService;
+    private final UserOrderService userOrderService;
 
     /**
      * 每天1点删除user_order表里date字段的日期为昨天的数据
@@ -28,7 +28,7 @@ public class OrderRecordSchedule {
     @Scheduled(cron = "0 0 1 * * ? ")
     public void cleanUserOrder() {
 
-     //   userExtraService.updateStatus();
+        userOrderService.deleteHistory();
 
         Thread current = Thread.currentThread();
         System.out.println("定时任务1:" + current.getId());

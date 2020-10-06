@@ -146,3 +146,90 @@
 2020/10/06 21:03:58 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:61] Started AbootRun in 38.526 seconds (JVM running for 44.08)
 2020/10/06 21:03:58 INFO [restartedMain] c.w.AbootRun [AbootRun.java:38] link(接口文档):  http://localhost:8800/doc.html
 2020/10/06 21:03:58 INFO [restartedMain] c.w.AbootRun [AbootRun.java:39] link(api导出):   http://localhost:8800/v2/api-docs
+2020/10/06 21:25:13 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:55] Starting AbootRun on LAPTOP-6P4NQTEI with PID 9196 (C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system\target\classes started by lin in C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4)
+2020/10/06 21:25:13 INFO [restartedMain] c.w.AbootRun [SpringApplication.java:655] The following profiles are active: dev
+2020/10/06 21:27:10 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:55] Starting AbootRun on LAPTOP-6P4NQTEI with PID 18740 (C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system\target\classes started by lin in C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4)
+2020/10/06 21:27:10 INFO [restartedMain] c.w.AbootRun [SpringApplication.java:655] The following profiles are active: dev
+2020/10/06 21:29:06 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:55] Starting AbootRun on LAPTOP-6P4NQTEI with PID 2864 (C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system\target\classes started by lin in C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4)
+2020/10/06 21:29:06 INFO [restartedMain] c.w.AbootRun [SpringApplication.java:655] The following profiles are active: dev
+2020/10/06 21:29:24 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:54] 操作系统---Windows 10
+2020/10/06 21:29:24 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:55] 线程根路径---/C:/Users/lin/Desktop/%e5%9b%be%e4%b9%a6%e9%a6%86%e9%a2%84%e7%ba%a6%e9%a1%b9%e7%9b%ae/%e9%a1%b9%e7%9b%ae/aboot4/aboot-system/target/classes/
+2020/10/06 21:29:24 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:56] 项目目录路径---C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4
+2020/10/06 21:29:24 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:61] 资源存储路径---D:\projectdev\aboot4\
+2020/10/06 21:29:26 INFO [restartedMain] c.w.c.RedisConfig [RedisConfig.java:122] 初始化 -> [Redis CacheErrorHandler]
+2020/10/06 21:29:30 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:all------卡券管理
+2020/10/06 21:29:30 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:add------卡券创建
+2020/10/06 21:29:30 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:edit------卡券编辑
+2020/10/06 21:29:30 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:list------卡券查询
+2020/10/06 21:29:31 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:del------卡券删除
+2020/10/06 21:29:31 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:all------预约规则管理
+2020/10/06 21:29:31 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:add------预约规则创建
+2020/10/06 21:29:31 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:edit------预约规则编辑
+2020/10/06 21:29:31 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:list------预约规则查询
+2020/10/06 21:29:31 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:del------预约规则删除
+2020/10/06 21:29:31 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:61] Started AbootRun in 26.755 seconds (JVM running for 30.76)
+2020/10/06 21:29:31 INFO [restartedMain] c.w.AbootRun [AbootRun.java:38] link(接口文档):  http://localhost:8800/doc.html
+2020/10/06 21:29:31 INFO [restartedMain] c.w.AbootRun [AbootRun.java:39] link(api导出):   http://localhost:8800/v2/api-docs
+2020/10/06 21:30:00 INFO [scheduling-1] c.w.m.l.s.UserOrderSchedule [UserOrderSchedule.java:35] OrderRecordSchedule.executeFileDownLoadTask 定时任务1:112,name:scheduling-1
+2020/10/06 21:34:38 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:55] Starting AbootRun on LAPTOP-6P4NQTEI with PID 26224 (C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system\target\classes started by lin in C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4)
+2020/10/06 21:34:38 INFO [restartedMain] c.w.AbootRun [SpringApplication.java:655] The following profiles are active: dev
+2020/10/06 21:34:59 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:54] 操作系统---Windows 10
+2020/10/06 21:34:59 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:55] 线程根路径---/C:/Users/lin/Desktop/%e5%9b%be%e4%b9%a6%e9%a6%86%e9%a2%84%e7%ba%a6%e9%a1%b9%e7%9b%ae/%e9%a1%b9%e7%9b%ae/aboot4/aboot-system/target/classes/
+2020/10/06 21:34:59 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:56] 项目目录路径---C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4
+2020/10/06 21:34:59 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:61] 资源存储路径---D:\projectdev\aboot4\
+2020/10/06 21:35:01 INFO [restartedMain] c.w.c.RedisConfig [RedisConfig.java:122] 初始化 -> [Redis CacheErrorHandler]
+2020/10/06 21:35:04 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:all------卡券管理
+2020/10/06 21:35:04 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:add------卡券创建
+2020/10/06 21:35:04 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:edit------卡券编辑
+2020/10/06 21:35:04 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:list------卡券查询
+2020/10/06 21:35:05 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:del------卡券删除
+2020/10/06 21:35:05 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:all------预约规则管理
+2020/10/06 21:35:05 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:add------预约规则创建
+2020/10/06 21:35:05 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:edit------预约规则编辑
+2020/10/06 21:35:05 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:list------预约规则查询
+2020/10/06 21:35:05 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:del------预约规则删除
+2020/10/06 21:35:06 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:61] Started AbootRun in 29.121 seconds (JVM running for 32.619)
+2020/10/06 21:35:06 INFO [restartedMain] c.w.AbootRun [AbootRun.java:38] link(接口文档):  http://localhost:8800/doc.html
+2020/10/06 21:35:06 INFO [restartedMain] c.w.AbootRun [AbootRun.java:39] link(api导出):   http://localhost:8800/v2/api-docs
+2020/10/06 21:36:00 INFO [scheduling-1] c.w.m.l.s.UserOrderSchedule [UserOrderSchedule.java:35] OrderRecordSchedule.executeFileDownLoadTask 定时任务1:117,name:scheduling-1
+2020/10/06 21:50:02 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:55] Starting AbootRun on LAPTOP-6P4NQTEI with PID 248 (C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system\target\classes started by lin in C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4)
+2020/10/06 21:50:02 INFO [restartedMain] c.w.AbootRun [SpringApplication.java:655] The following profiles are active: dev
+2020/10/06 21:50:25 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:54] 操作系统---Windows 10
+2020/10/06 21:50:25 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:55] 线程根路径---/C:/Users/lin/Desktop/%e5%9b%be%e4%b9%a6%e9%a6%86%e9%a2%84%e7%ba%a6%e9%a1%b9%e7%9b%ae/%e9%a1%b9%e7%9b%ae/aboot4/aboot-system/target/classes/
+2020/10/06 21:50:25 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:56] 项目目录路径---C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4
+2020/10/06 21:50:25 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:61] 资源存储路径---D:\projectdev\aboot4\
+2020/10/06 21:50:26 INFO [restartedMain] c.w.c.RedisConfig [RedisConfig.java:122] 初始化 -> [Redis CacheErrorHandler]
+2020/10/06 21:50:30 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:all------卡券管理
+2020/10/06 21:50:30 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:add------卡券创建
+2020/10/06 21:50:30 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:edit------卡券编辑
+2020/10/06 21:50:30 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:list------卡券查询
+2020/10/06 21:50:30 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:del------卡券删除
+2020/10/06 21:50:30 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:all------预约规则管理
+2020/10/06 21:50:31 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:add------预约规则创建
+2020/10/06 21:50:31 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:edit------预约规则编辑
+2020/10/06 21:50:31 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:list------预约规则查询
+2020/10/06 21:50:31 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:del------预约规则删除
+2020/10/06 21:50:31 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:61] Started AbootRun in 30.006 seconds (JVM running for 33.532)
+2020/10/06 21:50:31 INFO [restartedMain] c.w.AbootRun [AbootRun.java:38] link(接口文档):  http://localhost:8800/doc.html
+2020/10/06 21:50:31 INFO [restartedMain] c.w.AbootRun [AbootRun.java:39] link(api导出):   http://localhost:8800/v2/api-docs
+2020/10/06 21:51:00 INFO [scheduling-1] c.w.m.l.s.UserOrderSchedule [UserOrderSchedule.java:35] OrderRecordSchedule.executeFileDownLoadTask 定时任务1:117,name:scheduling-1
+2020/10/06 21:52:11 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:55] Starting AbootRun on LAPTOP-6P4NQTEI with PID 20560 (C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system\target\classes started by lin in C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4)
+2020/10/06 21:52:11 INFO [restartedMain] c.w.AbootRun [SpringApplication.java:655] The following profiles are active: dev
+2020/10/06 21:52:35 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:54] 操作系统---Windows 10
+2020/10/06 21:52:35 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:55] 线程根路径---/C:/Users/lin/Desktop/%e5%9b%be%e4%b9%a6%e9%a6%86%e9%a2%84%e7%ba%a6%e9%a1%b9%e7%9b%ae/%e9%a1%b9%e7%9b%ae/aboot4/aboot-system/target/classes/
+2020/10/06 21:52:35 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:56] 项目目录路径---C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4
+2020/10/06 21:52:35 INFO [restartedMain] c.w.u.PathUtil [PathUtil.java:61] 资源存储路径---D:\projectdev\aboot4\
+2020/10/06 21:52:36 INFO [restartedMain] c.w.c.RedisConfig [RedisConfig.java:122] 初始化 -> [Redis CacheErrorHandler]
+2020/10/06 21:52:39 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:all------卡券管理
+2020/10/06 21:52:40 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:add------卡券创建
+2020/10/06 21:52:40 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:edit------卡券编辑
+2020/10/06 21:52:40 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:list------卡券查询
+2020/10/06 21:52:40 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:del------卡券删除
+2020/10/06 21:52:40 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:all------预约规则管理
+2020/10/06 21:52:40 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:add------预约规则创建
+2020/10/06 21:52:40 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:edit------预约规则编辑
+2020/10/06 21:52:40 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:list------预约规则查询
+2020/10/06 21:52:40 INFO [restartedMain] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:del------预约规则删除
+2020/10/06 21:52:41 INFO [restartedMain] c.w.AbootRun [StartupInfoLogger.java:61] Started AbootRun in 31.452 seconds (JVM running for 35.087)
+2020/10/06 21:52:41 INFO [restartedMain] c.w.AbootRun [AbootRun.java:38] link(接口文档):  http://localhost:8800/doc.html
+2020/10/06 21:52:41 INFO [restartedMain] c.w.AbootRun [AbootRun.java:39] link(api导出):   http://localhost:8800/v2/api-docs

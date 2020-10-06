@@ -507,3 +507,8 @@ Caused by: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry '2
 	at com.wteam.modules.library.web.OrderController$$FastClassBySpringCGLIB$$800a016f.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 
+2020/10/06 21:20:16 ERROR [http-nio-8800-exec-5] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 没有该预约记录
+	at com.wteam.modules.library.web.OrderController.cancel(OrderController.java:197)
+	at com.wteam.modules.library.web.OrderController$$FastClassBySpringCGLIB$$800a016f.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+

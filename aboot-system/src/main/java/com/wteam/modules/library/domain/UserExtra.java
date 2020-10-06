@@ -47,9 +47,6 @@ public class UserExtra extends BaseEntity{
     @NotNull
     private Long userId;
 
-    @Column(name = "order_status", columnDefinition = "tinyint(1)  default 0 comment \'状态:0为未预约，1为已预约今天的座位，2为已预约明天的座位，3为已预约今明两天的座位\'")
-    private Integer orderStatus;
-
     public void copy(UserExtra source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
