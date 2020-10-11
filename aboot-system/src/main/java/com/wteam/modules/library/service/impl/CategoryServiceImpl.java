@@ -12,12 +12,15 @@ import com.wteam.modules.library.repository.CategoryRepository;
 import com.wteam.modules.library.repository.FloorRepository;
 import com.wteam.modules.library.service.CategoryService;
 import com.wteam.modules.library.service.FloorService;
+import com.wteam.utils.PageUtil;
 import com.wteam.utils.QueryHelper;
 import com.wteam.utils.RedisUtils;
 import com.wteam.utils.ValidUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,10 +50,11 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    @Cacheable(key = "'category:' + #p0")
+    @Cacheable(key = "'id:' + #p0")
     public CategoryDTO findDTOById(Long id) {
-
-        return null;
+        Category seat = categoryRepository.findById(id).orElse(null);
+        ValidUtil.notNull(seat,Category.ENTITY_NAME,"id",id);
+        return categoryMapper.toDto(seat);
     }
 
     @Override
@@ -61,6 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @CacheEvict(key = "'id:' + #p0.id")
     @Transactional(rollbackFor = Exception.class)
     public void update(Category resources) {
         Category category = categoryRepository.findById(resources.getId()).orElse(null);
@@ -72,15 +77,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(Set<Long> ids) {
-        for (Long id : ids) {
-            categoryRepository.logicDelete(id);
-        }
+    public void deleteAll(Set<Long> ids) {
+        redisUtils.delByKeys("category::id:",ids);
+        categoryRepository.logicDeleteInBatchById(ids);
     }
 
     @Override
     public Map<String, Object> queryAll(CategoryQueryCriteria criteria, Pageable pageable) {
-        return null;
+        Page<Category> page = categoryRepository.findAll((root, criteriaQuery, criteriaBuilder) ->  QueryHelper.andPredicate(root,criteria,criteriaBuilder),pageable);
+        return PageUtil.toPage(page.map(categoryMapper::toDto));
     }
 
     @Override

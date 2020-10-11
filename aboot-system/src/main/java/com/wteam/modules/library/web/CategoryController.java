@@ -66,7 +66,7 @@ public class CategoryController {
     @PostMapping("del")
     @PreAuthorize("@R.check('CATEGORY:all','CATEGORY:del')")
     public R delete(@RequestBody Set<Long> ids){
-        categoryService.delete(ids);
+        categoryService.deleteAll(ids);
         return R.ok();
     }
 

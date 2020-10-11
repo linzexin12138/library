@@ -48,15 +48,7 @@ public class OrderTimeController {
     @AnonymousGetMapping
     public R getSomedayOrderTime(@RequestParam LocalDate localDate)
     {
-        OrderTimeQueryCriteria criteria = new OrderTimeQueryCriteria();
-
-        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
-        if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY){
-            criteria.setName("周末");
-        }else{
-            criteria.setName("工作日");
-        }
-        return R.ok(orderTimeService.queryAll(criteria));
+        return R.ok(orderTimeService.getSomedayOrderTime(localDate));
     }
 
     @ApiOperation(value = "新增预约时间")
@@ -82,7 +74,7 @@ public class OrderTimeController {
     @PostMapping("del")
     @PreAuthorize("@R.check('ORDERTIME:all','ORDERTIME:del')")
     public R delete(@RequestBody Set<Long> ids){
-        orderTimeService.delete(ids);
+        orderTimeService.deleteAll(ids);
         return R.ok();
     }
 

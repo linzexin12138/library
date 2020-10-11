@@ -41,7 +41,7 @@ public interface SeatService {
      * delete
      * @param ids
      */
-    void delete(Set<Long> ids);
+    void deleteAll(Set<Long> ids);
 
     /**
      * queryAll
@@ -65,4 +65,5 @@ public interface SeatService {
      */
     void download(List<SeatDTO> queryAll, HttpServletResponse response) throws IOException;
 
+    List<Seat> getIdListByRoomId(Long roomId);
 }

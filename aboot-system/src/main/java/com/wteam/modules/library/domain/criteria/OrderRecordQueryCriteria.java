@@ -13,6 +13,7 @@ import lombok.Data;
 import com.wteam.annotation.Query;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import io.swagger.annotations.ApiParam;
@@ -40,5 +41,5 @@ public class OrderRecordQueryCriteria{
     private Integer status;
 
     @Query(type = Query.Type.IN, propName="seatId")
-    private Set<Long> seatIds;
+    private List<Long> seatIds;
 }

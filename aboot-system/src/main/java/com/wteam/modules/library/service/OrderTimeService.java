@@ -5,6 +5,7 @@ import com.wteam.modules.library.domain.criteria.OrderTimeQueryCriteria;
 import com.wteam.modules.library.domain.dto.OrderTimeDTO;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,7 +35,7 @@ public interface OrderTimeService {
      * delete
      * @param ids
      */
-    void delete(Set<Long> ids);
+    void deleteAll(Set<Long> ids);
 
 
     /**
@@ -52,4 +53,5 @@ public interface OrderTimeService {
      */
     List<OrderTimeDTO> queryAll(OrderTimeQueryCriteria criteria);
 
+    List<OrderTimeDTO> getSomedayOrderTime(LocalDate localDate);
 }

@@ -66,7 +66,7 @@ public class RoomController {
     @PostMapping("del")
     @PreAuthorize("@R.check('ROOM:all','ROOM:del')")
     public R delete(@RequestBody Set<Long> ids){
-        roomService.delete(ids);
+        roomService.deleteAll(ids);
         return R.ok();
     }
 

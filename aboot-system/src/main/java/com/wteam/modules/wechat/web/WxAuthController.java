@@ -14,6 +14,8 @@ import com.wteam.annotation.Log;
 import com.wteam.annotation.rest.AnonymousPostMapping;
 import com.wteam.domain.vo.JwtUser;
 import com.wteam.domain.vo.R;
+import com.wteam.modules.library.domain.UserExtra;
+import com.wteam.modules.library.service.UserExtraService;
 import com.wteam.modules.miniapp.domain.WxUser;
 import com.wteam.modules.miniapp.domain.dto.WxLoginDTO;
 import com.wteam.modules.miniapp.service.WxUserService;
@@ -63,6 +65,8 @@ public class WxAuthController {
 
     private final UserService userService;
 
+    private final UserExtraService userExtraService;
+
     private final JwtTokenUtil jwtTokenUtil;
 
     private final PasswordEncoder passwordEncoder;
@@ -108,6 +112,11 @@ public class WxAuthController {
             UserDTO userDTO = userService.create(user);
             wxUser.setUid(userDTO.getId());
             wxUserService.create(wxUser);
+            UserExtra userExtra = new UserExtra();
+            userExtra.setUserId(userDTO.getId());
+            userExtra.setSignInFlag(false);
+            userExtra.setCreditScore(100);
+            userExtraService.create(userExtra);
         }else {
             //更新
             user.setId(wxUser.getUid());

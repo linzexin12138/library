@@ -8,6 +8,7 @@ import com.wteam.modules.library.repository.OrderTimeRepository;
 import com.wteam.modules.library.service.OrderTimeService;
 import com.wteam.utils.PageUtil;
 import com.wteam.utils.QueryHelper;
+import com.wteam.utils.RedisUtils;
 import com.wteam.utils.ValidUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
@@ -18,6 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,6 +38,7 @@ public class OrderTimeServiceImpl implements OrderTimeService {
 
     private final OrderTimeRepository orderTimeRepository;
     private final OrderTimeMapper orderTimeMapper;
+    private final RedisUtils redisUtils;
 
     @Override
     @Cacheable(key = "'id:'+#p0")
@@ -59,13 +63,14 @@ public class OrderTimeServiceImpl implements OrderTimeService {
         orderTime.setStarTime(resources.getStarTime());
         orderTime.setEndTime(resources.getEndTime());
         orderTimeRepository.save(orderTime);
+        redisUtils.del("orderTime::getSomedayOrderTime:*");
     }
 
     @Override
-    public void delete(Set<Long> ids) {
-        for (Long id : ids) {
-            orderTimeRepository.logicDelete(id);
-        }
+    public void deleteAll(Set<Long> ids) {
+        orderTimeRepository.logicDeleteInBatchById(ids);
+        redisUtils.delByKeys("orderTime::id:",ids);
+        redisUtils.del("orderTime::getSomedayOrderTime:*");
     }
 
     @Override
@@ -82,5 +87,20 @@ public class OrderTimeServiceImpl implements OrderTimeService {
     @Override
     public List<OrderTimeDTO> queryAll(OrderTimeQueryCriteria criteria){
         return orderTimeMapper.toDto(orderTimeRepository.findAll((root, criteriaQuery, criteriaBuilder) ->  QueryHelper.andPredicate(root,criteria,criteriaBuilder)));
+    }
+
+    @Override
+    @Cacheable(key = "'getSomedayOrderTime:' + #p0")
+    public List<OrderTimeDTO> getSomedayOrderTime(LocalDate localDate) {
+        OrderTimeQueryCriteria criteria = new OrderTimeQueryCriteria();
+
+        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY){
+            criteria.setName("周末");
+        }else{
+            criteria.setName("工作日");
+        }
+
+        return queryAll(criteria);
     }
 }

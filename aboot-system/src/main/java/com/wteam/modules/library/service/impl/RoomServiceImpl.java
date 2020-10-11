@@ -6,12 +6,15 @@ import com.wteam.modules.library.domain.dto.RoomDTO;
 import com.wteam.modules.library.domain.mapper.RoomMapper;
 import com.wteam.modules.library.repository.RoomRepository;
 import com.wteam.modules.library.service.RoomService;
+import com.wteam.utils.PageUtil;
 import com.wteam.utils.QueryHelper;
 import com.wteam.utils.RedisUtils;
 import com.wteam.utils.ValidUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,10 +44,11 @@ public class RoomServiceImpl implements RoomService {
 
 
     @Override
-    @Cacheable(key = "'room:' + #p0")
+    @Cacheable(key = "'id:' + #p0")
     public RoomDTO findDTOById(Long id) {
-
-        return null;
+        Room seat = roomRepository.findById(id).orElse(null);
+        ValidUtil.notNull(seat,Room.ENTITY_NAME,"id",id);
+        return roomMapper.toDto(seat);
     }
 
     @Override
@@ -55,6 +59,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    @CacheEvict(key = "'id:' + #p0.id")
     @Transactional(rollbackFor = Exception.class)
     public void update(Room resources) {
         Room room = roomRepository.findById(resources.getId()).orElse(null);
@@ -66,15 +71,15 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(Set<Long> ids) {
-        for (Long id : ids) {
-            roomRepository.logicDelete(id);
-        }
+    public void deleteAll(Set<Long> ids) {
+        redisUtils.delByKeys("room::id:",ids);
+        roomRepository.logicDeleteInBatchById(ids);
     }
 
     @Override
     public Map<String, Object> queryAll(RoomQueryCriteria criteria, Pageable pageable) {
-        return null;
+        Page<Room> page = roomRepository.findAll((root, criteriaQuery, criteriaBuilder) ->  QueryHelper.andPredicate(root,criteria,criteriaBuilder),pageable);
+        return PageUtil.toPage(page.map(roomMapper::toDto));
     }
 
     @Override

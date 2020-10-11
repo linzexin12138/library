@@ -41,7 +41,7 @@ public interface FloorService {
      * delete
      * @param ids
      */
-    void delete(Set<Long> ids);
+    void deleteAll(Set<Long> ids);
 
     /**
      * queryAll

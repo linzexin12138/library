@@ -19,7 +19,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 
@@ -51,47 +51,64 @@ public class DateTimeConfig {
   /**
    * LocalDate转换器，用于转换RequestParam和PathVariable参数
    */
-  @ConditionalOnMissingBean
-  public Converter<String, LocalDate> DateConvert() {
-    return source -> LocalDate.parse(source, DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
+  @Bean
+  public Converter<String, LocalDate> localDateConvert() {
+    return new Converter<String, LocalDate>() {
+      @Override
+      public LocalDate convert(String source) {
+        return LocalDate.parse(source, DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
+      }
+    };
   }
 
   /**
    * LocalDateTime转换器，用于转换RequestParam和PathVariable参数
    */
-  @ConditionalOnMissingBean
+  @Bean
   public Converter<String, LocalDateTime> localDateTimeConverter() {
-    return source -> LocalDateTime.parse(source, DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT));
+    return new Converter<String, LocalDateTime>() {
+      @Override
+      public LocalDateTime convert(String source) {
+        return LocalDateTime.parse(source, DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT));
+      }
+    };
   }
 
   /**
    * LocalTime转换器，用于转换RequestParam和PathVariable参数
    */
-  @ConditionalOnMissingBean
+  @Bean
   public Converter<String, LocalTime> localTimeConverter() {
-    return source -> LocalTime.parse(source, DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT));
+    return new Converter<String, LocalTime>() {
+      @Override
+      public LocalTime convert(String source) {
+        return LocalTime.parse(source, DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT));
+      }
+    };
   }
 
   /**
    * Date转换器，用于转换RequestParam和PathVariable参数
    */
-  @ConditionalOnMissingBean
+  @Bean
   public Converter<String, Date> dateConverter() {
-    return source -> {
-      SimpleDateFormat format = new SimpleDateFormat(DEFAULT_DATE_TIME_FORMAT);
-      try {
-        return format.parse(source);
-      } catch (ParseException e) {
-        throw new RuntimeException(e);
+    return new Converter<String, Date>() {
+      @Override
+      public Date convert(String source) {
+        SimpleDateFormat format = new SimpleDateFormat(DEFAULT_DATE_TIME_FORMAT);
+        try {
+          return format.parse(source);
+        } catch (ParseException e) {
+          throw new RuntimeException(e);
+        }
       }
     };
   }
 
-
   /**
    * Json序列化和反序列化转换器，用于转换Post请求体中的json以及将我们的对象序列化为返回响应的json
    */
-  @ConditionalOnMissingBean
+  @Bean
   public ObjectMapper objectMapper(){
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);

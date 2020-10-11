@@ -7,6 +7,7 @@ import com.wteam.utils.RedisUtils;
 import com.wteam.utils.ValidUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +46,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    @CacheEvict(key = "'id:' + #p0.id")
     @Transactional(rollbackFor = Exception.class)
     public void update(Card resources) {
         Card card = cardRepository.findById(resources.getId()).orElse(null);
@@ -57,10 +59,9 @@ public class CardServiceImpl implements CardService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(Set<Long> ids) {
-        for (Long id : ids) {
-            cardRepository.logicDelete(id);
-        }
+    public void deleteAll(Set<Long> ids) {
+        redisUtils.delByKeys("card::id:",ids);
+        cardRepository.logicDeleteInBatchById(ids);
     }
 
 }

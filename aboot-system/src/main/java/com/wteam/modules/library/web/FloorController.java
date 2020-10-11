@@ -70,7 +70,7 @@ public class FloorController {
     @PostMapping("del")
     @PreAuthorize("@R.check('FLOOR:all','FLOOR:del')")
     public R delete(@RequestBody Set<Long> ids){
-        floorService.delete(ids);
+        floorService.deleteAll(ids);
         return R.ok();
     }
 

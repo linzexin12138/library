@@ -62,7 +62,7 @@ public class CardController {
     @PostMapping("del")
     @PreAuthorize("@R.check('RULE:all','RULE:del')")
     public R delete(@RequestBody Set<Long> ids){
-        cardService.delete(ids);
+        cardService.deleteAll(ids);
         return R.ok();
     }
 

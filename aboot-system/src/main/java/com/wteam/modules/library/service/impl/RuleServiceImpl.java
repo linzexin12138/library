@@ -7,6 +7,7 @@ import com.wteam.utils.RedisUtils;
 import com.wteam.utils.ValidUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -44,6 +45,7 @@ public class RuleServiceImpl implements RuleService {
     }
 
     @Override
+    @CacheEvict(key = "'id:' + #p0.id")
     @Transactional(rollbackFor = Exception.class)
     public void update(Rule resources) {
         Rule rule = ruleRepository.findById(resources.getId()).orElse(null);
@@ -57,9 +59,8 @@ public class RuleServiceImpl implements RuleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Set<Long> ids) {
-        for (Long id : ids) {
-            ruleRepository.logicDelete(id);
-        }
+        redisUtils.delByKeys("rule::id:",ids);
+        ruleRepository.logicDeleteInBatchById(ids);
     }
 
 }

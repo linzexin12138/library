@@ -43,9 +43,18 @@ public class UserExtra extends BaseEntity{
     @Column(name = "credit_score",columnDefinition = "int default 100 comment \'信用分\'")
     private Integer creditScore;
 
+    /**
+     * 用户id
+     */
     @Column(name = "user_id")
     @NotNull
     private Long userId;
+
+    /**
+     * 签到标志，默认值为0，0代表今天还没有签到，1已经签到。用途：签到加信用分限制一天一次
+     */
+    @Column(name = "sign_in_flag",columnDefinition = "tinyint(1) default 0 comment \'签到标志\'")
+    private Boolean signInFlag;
 
     public void copy(UserExtra source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

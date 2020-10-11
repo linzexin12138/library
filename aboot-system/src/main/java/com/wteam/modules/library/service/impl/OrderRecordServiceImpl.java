@@ -142,11 +142,10 @@ public class OrderRecordServiceImpl implements OrderRecordService {
     public void update(OrderRecord resources) {
         OrderRecord orderRecord = orderRecordRepository.findById(resources.getId()).orElse(null);
         ValidUtil.notNull( orderRecord,OrderRecord.ENTITY_NAME,"id",resources.getId());
-
-        redisUtils.del("orderRecord::findById:" + orderRecord.getId());
-        redisUtils.del("orderRecord::findByIdAndUserId:" + orderRecord.getId() + orderRecord.getUserId());
         orderRecord.copy(resources);
         orderRecordRepository.save(orderRecord);
+        redisUtils.del("orderRecord::findById:" + orderRecord.getId());
+        redisUtils.del("orderRecord::findByIdAndUserId:" + orderRecord.getId() + orderRecord.getUserId());
     }
 
     @Override

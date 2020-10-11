@@ -1,5 +1,6 @@
 package com.wteam.modules.library.schedule;
 
+import com.wteam.modules.library.service.UserExtraService;
 import com.wteam.modules.library.service.UserOrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,21 +15,24 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class UserOrderSchedule {
+public class LibrarySchedule {
 
 //    private String url = "jdbc:mysql://localhost:3306/library?rewriteBatchedStatements=true";
 //    private String user = "root";
 //    private String password = "root";
 
     private final UserOrderService userOrderService;
+    private final UserExtraService userExtraService;
 
     /**
      * 每天1点删除user_order表里date字段的日期为昨天的数据
+     * 和重置user_extra表里的signInFlag字段为0
      */
     @Scheduled(cron = "0 0 1 * * ? ")
     public void cleanUserOrder() {
 
         userOrderService.deleteHistory();
+        userExtraService.resetSignInFlag();
 
         Thread current = Thread.currentThread();
         System.out.println("定时任务1:" + current.getId());

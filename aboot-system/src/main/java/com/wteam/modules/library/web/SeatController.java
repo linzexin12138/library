@@ -67,7 +67,7 @@ public class SeatController {
     @PostMapping("del")
     @PreAuthorize("@R.check('SEAT:all','SEAT:del')")
     public R delete(@RequestBody Set<Long> ids){
-        seatService.delete(ids);
+        seatService.deleteAll(ids);
         return R.ok();
     }
 
