@@ -57,10 +57,4 @@ public class Room extends BaseEntity{
     @JoinColumn(name = "cat_id")
     private Category category;
 
-    /**
-     * 座位
-     */
-    @JsonIgnoreProperties({"room"})
-    @OneToMany(mappedBy = "room")
-    private Set<Seat> seats;
 }

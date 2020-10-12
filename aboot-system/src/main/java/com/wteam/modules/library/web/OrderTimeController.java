@@ -6,7 +6,6 @@ import com.wteam.annotation.permission.PermissionGroup;
 import com.wteam.annotation.rest.AnonymousGetMapping;
 import com.wteam.domain.vo.R;
 import com.wteam.modules.library.domain.OrderTime;
-import com.wteam.modules.library.domain.criteria.OrderTimeQueryCriteria;
 import com.wteam.modules.library.service.OrderTimeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,8 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Set;
 

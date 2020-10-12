@@ -2,7 +2,6 @@ package com.wteam.modules.library.web;
 
 import com.wteam.annotation.Log;
 import com.wteam.annotation.permission.PermissionGroup;
-import com.wteam.base.BaseEntity;
 import com.wteam.domain.vo.R;
 import com.wteam.modules.library.domain.Seat;
 import com.wteam.modules.library.domain.criteria.SeatQueryCriteria;
@@ -10,7 +9,6 @@ import com.wteam.modules.library.service.SeatService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.sql.Update;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
@@ -74,8 +72,8 @@ public class SeatController {
     /**
      * 导出数据
      * @param criteria /
-     * @return response
      */
+
     @ApiOperation(value = "导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@R.check('SEAT:all','SEAT:list','USER:all','USER:list')")

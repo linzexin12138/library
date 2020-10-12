@@ -7,8 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 /**
- * @Author: Charles
- * @Date: 2020/9/21 13:09
+ * @author Charles
+ * @since 2020/9/21 13:09
  */
 
 @Mapper(componentModel = "spring",uses = {SeatMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)

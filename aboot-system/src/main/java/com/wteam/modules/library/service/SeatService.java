@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @Author: Charles
- * @Date: 2020/9/21 10:54
+ * @author Charles
+ * @since 2020/9/21 10:54
  */
 public interface SeatService {
     /**

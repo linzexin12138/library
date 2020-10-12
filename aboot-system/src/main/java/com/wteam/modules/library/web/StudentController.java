@@ -6,8 +6,6 @@ import com.wteam.domain.vo.R;
 import com.wteam.modules.library.domain.criteria.UserRoleQueryCriteria;
 import com.wteam.modules.system.config.LoginType;
 import com.wteam.modules.system.domain.User;
-import com.wteam.modules.system.domain.mapper.RoleMapper;
-import com.wteam.modules.system.service.RoleService;
 import com.wteam.modules.system.service.UserService;
 import com.wteam.utils.StringUtils;
 import io.swagger.annotations.Api;
@@ -21,8 +19,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @Author: Charles
- * @Date: 2020/9/20 16:13
+ * @author Charles
+ * @since 2020/9/20 16:13
  */
 
 @SuppressWarnings({"rawtypes"})
@@ -36,8 +34,6 @@ public class StudentController {
     private static final Long STUDENT = 4L;
 
     private final UserService userService;
-    private final RoleService roleService;
-    private final RoleMapper roleMapper;
     private final PasswordEncoder passwordEncoder;
 
     @ApiOperation(value = "查询学生列表")

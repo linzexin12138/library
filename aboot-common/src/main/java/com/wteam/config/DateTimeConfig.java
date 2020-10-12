@@ -22,8 +22,10 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -34,6 +36,7 @@ import java.util.Date;
 
 /**
  * 日期转换解析器
+ * Converter切勿改为匿名函数
  * @author mission
  * @since 2019/07/07 11:51
  */
@@ -52,7 +55,7 @@ public class DateTimeConfig {
    * LocalDate转换器，用于转换RequestParam和PathVariable参数
    */
   @Bean
-  public Converter<String, LocalDate> localDateConvert() {
+  public Converter<String, LocalDate> DateConvert() {
     return new Converter<String, LocalDate>() {
       @Override
       public LocalDate convert(String source) {
@@ -106,6 +109,19 @@ public class DateTimeConfig {
   }
 
   /**
+   * Timestamp转换器，用于转换RequestParam和PathVariable参数
+   */
+  @Bean
+  public Converter<String, Timestamp> timeStampConverter() {
+    return new Converter<String, Timestamp>() {
+      @Override
+      public Timestamp convert(String source) {
+        return StringUtils.isEmpty(source)?null:Timestamp.valueOf(source);
+      }
+    };
+  }
+
+  /**
    * Json序列化和反序列化转换器，用于转换Post请求体中的json以及将我们的对象序列化为返回响应的json
    */
   @Bean
@@ -121,6 +137,7 @@ public class DateTimeConfig {
     javaTimeModule.addDeserializer(LocalDateTime.class,new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)));
     javaTimeModule.addDeserializer(LocalDate.class,new LocalDateDeserializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT)));
     javaTimeModule.addDeserializer(LocalTime.class,new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)));
+    javaTimeModule.addSerializer(LocalDateTime.class,new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT)));
 
     //Date序列化和反序列化
     javaTimeModule.addSerializer(Date.class, new JsonSerializer<Date>() {
@@ -144,9 +161,23 @@ public class DateTimeConfig {
       }
     });
 
+    //Timestamp序列化和反序列化
+    javaTimeModule.addSerializer(Timestamp.class, new JsonSerializer<Timestamp>() {
+      @Override
+      public void serialize(Timestamp timestamp, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        SimpleDateFormat formatter = new SimpleDateFormat(DEFAULT_DATE_TIME_FORMAT);
+        String formattedDate = formatter.format(timestamp);
+        jsonGenerator.writeString(formattedDate);
+      }
+    });
+    javaTimeModule.addDeserializer(Timestamp.class, new JsonDeserializer<Timestamp>() {
+      @Override
+      public Timestamp deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        return StringUtils.isEmpty(jsonParser.getText())?null:Timestamp.valueOf(jsonParser.getText());
+      }
+    });
+
     objectMapper.registerModule(javaTimeModule);
     return objectMapper;
   }
-
-
 }

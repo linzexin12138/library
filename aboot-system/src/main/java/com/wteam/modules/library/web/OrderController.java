@@ -5,10 +5,8 @@ import com.wteam.domain.vo.R;
 import com.wteam.exception.BadRequestException;
 import com.wteam.modules.library.domain.*;
 import com.wteam.modules.library.domain.criteria.OrderRecordQueryCriteria;
-import com.wteam.modules.library.domain.criteria.OrderTimeQueryCriteria;
 import com.wteam.modules.library.domain.criteria.SeatQueryCriteria;
 import com.wteam.modules.library.domain.criteria.UserOrderQueryCriteria;
-import com.wteam.modules.library.domain.dto.OrderRecordDTO;
 import com.wteam.modules.library.domain.dto.OrderTimeDTO;
 import com.wteam.modules.library.domain.dto.SeatDTO;
 import com.wteam.modules.library.domain.dto.UserOrderDTO;
@@ -93,7 +91,7 @@ public class OrderController {
             LocalDateTime dateTime = LocalDateTime.of(orderRecord.getDate(), orderRecord.getOrderTime().getEndTime());
             Long orderTimeStamp = DateUtil.getTimeStamp(dateTime);
             Long nowTimeStamp = DateUtil.getTimeStamp(LocalDateTime.now());
-            Long expireTime = orderTimeStamp - nowTimeStamp;
+            long expireTime = orderTimeStamp - nowTimeStamp;
             redisUtils.set("orderId:"+orderRecord.getId(),orderRecord.getStatus(),expireTime);
         }
         return R.ok("预约成功");
@@ -145,7 +143,7 @@ public class OrderController {
             //在预约开始时间后十分钟进行签到则要扣除1分信用分
             int score = userExtra.getCreditScore() - 1;
             userExtra.setCreditScore(score);
-            creditScoreLog = creditScoreLog = createCreditLog(userId,"迟到十分钟，扣除1分信用分",-1);
+            creditScoreLog = createCreditLog(userId,"迟到十分钟，扣除1分信用分",-1);
         }
 
         if (creditScoreLog != null){

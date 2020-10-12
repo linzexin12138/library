@@ -1,75 +1,10 @@
-2020/10/11 10:46:45 ERROR [http-nio-8800-exec-6] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 该时间段 08:00 - 10:10已不可预约
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl.create(OrderRecordServiceImpl.java:112)
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl$$FastClassBySpringCGLIB$$e4d0c4a.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+2020/10/12 09:35:35 ERROR [http-nio-8800-exec-2] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 用户账号扩展信息不存在 { "id":"15" }
+	at com.wteam.utils.ValidUtil.notNull(ValidUtil.java:36)
+	at com.wteam.modules.library.service.impl.UserExtraExtraServiceImpl.findByUserId(UserExtraExtraServiceImpl.java:69)
+	at com.wteam.modules.library.service.impl.UserExtraExtraServiceImpl$$FastClassBySpringCGLIB$$ca35a056.invoke(<generated>)
 
-2020/10/11 10:47:23 ERROR [http-nio-8800-exec-8] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 该时间段 08:00 - 10:10已不可预约
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl.create(OrderRecordServiceImpl.java:112)
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl$$FastClassBySpringCGLIB$$e4d0c4a.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-
-2020/10/11 10:47:39 ERROR [http-nio-8800-exec-9] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 该时间段 08:00 - 10:10已不可预约
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl.create(OrderRecordServiceImpl.java:112)
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl$$FastClassBySpringCGLIB$$e4d0c4a.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-
-2020/10/11 10:47:44 ERROR [http-nio-8800-exec-10] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 该时间段 08:00 - 10:10已不可预约
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl.create(OrderRecordServiceImpl.java:112)
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl$$FastClassBySpringCGLIB$$e4d0c4a.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-
-2020/10/11 10:47:55 ERROR [http-nio-8800-exec-2] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 该时间段 08:00 - 10:10已不可预约
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl.create(OrderRecordServiceImpl.java:112)
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl$$FastClassBySpringCGLIB$$e4d0c4a.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-
-2020/10/11 10:49:19 ERROR [http-nio-8800-exec-1] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 该时间段 08:00 - 10:10已不可预约
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl.create(OrderRecordServiceImpl.java:112)
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl$$FastClassBySpringCGLIB$$e4d0c4a.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-
-2020/10/11 10:49:45 ERROR [http-nio-8800-exec-3] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 该时间段 08:00 - 10:10已不可预约
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl.create(OrderRecordServiceImpl.java:112)
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl$$FastClassBySpringCGLIB$$e4d0c4a.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-
-2020/10/11 10:50:13 ERROR [http-nio-8800-exec-4] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 该时间段 08:00 - 10:10已不可预约
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl.create(OrderRecordServiceImpl.java:112)
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl$$FastClassBySpringCGLIB$$e4d0c4a.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-
-2020/10/11 10:58:48 ERROR [http-nio-8800-exec-1] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:170] org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.wteam.domain.vo.R com.wteam.modules.library.web.OrderController.order(com.wteam.modules.library.domain.vo.OrderRecordVO): [Field error in object 'orderRecordVO' on field 'date': rejected value [null]; codes [NotNull.orderRecordVO.date,NotNull.date,NotNull.java.time.LocalDate,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [orderRecordVO.date,date]; arguments []; default message [date]]; default message [不能为null]] 
-	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:139)
-	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:121)
-	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:167)
-
-2020/10/11 11:02:58 ERROR [http-nio-8800-exec-5] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 已经被其他人预约了
-	at com.wteam.modules.library.service.impl.UserOrderServiceImpl.create(UserOrderServiceImpl.java:140)
-	at com.wteam.modules.library.service.impl.UserOrderServiceImpl$$FastClassBySpringCGLIB$$33e1f1c6.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-
-2020/10/11 11:03:11 ERROR [http-nio-8800-exec-6] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 该时间段 08:30 - 10:10已不可预约
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl.create(OrderRecordServiceImpl.java:112)
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl$$FastClassBySpringCGLIB$$e4d0c4a.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-
-2020/10/11 11:03:17 ERROR [http-nio-8800-exec-7] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 已经被其他人预约了
-	at com.wteam.modules.library.service.impl.UserOrderServiceImpl.create(UserOrderServiceImpl.java:140)
-	at com.wteam.modules.library.service.impl.UserOrderServiceImpl$$FastClassBySpringCGLIB$$33e1f1c6.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-
-2020/10/11 11:03:22 ERROR [http-nio-8800-exec-8] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 已经被其他人预约了
-	at com.wteam.modules.library.service.impl.UserOrderServiceImpl.create(UserOrderServiceImpl.java:140)
-	at com.wteam.modules.library.service.impl.UserOrderServiceImpl$$FastClassBySpringCGLIB$$33e1f1c6.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-
-2020/10/11 11:14:28 ERROR [http-nio-8800-exec-8] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:170] org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public com.wteam.domain.vo.R com.wteam.modules.library.web.OrderController.order(com.wteam.modules.library.domain.vo.OrderRecordVO): [Field error in object 'orderRecordVO' on field 'seatIdList': rejected value [[]]; codes [NotEmpty.orderRecordVO.seatIdList,NotEmpty.seatIdList,NotEmpty.java.util.List,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [orderRecordVO.seatIdList,seatIdList]; arguments []; default message [seatIdList]]; default message [不能为空]] 
-	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:139)
-	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:121)
-	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:167)
-
-2020/10/11 11:14:36 ERROR [http-nio-8800-exec-10] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 该时间段 08:00 - 10:10已不可预约
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl.create(OrderRecordServiceImpl.java:112)
-	at com.wteam.modules.library.service.impl.OrderRecordServiceImpl$$FastClassBySpringCGLIB$$e4d0c4a.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+2020/10/12 09:37:55 ERROR [http-nio-8800-exec-6] com.wteam.exception.handler.GlobalExceptionHandler [GlobalExceptionHandler.java:118] com.wteam.exception.BadRequestException: 用户账号扩展信息不存在 { "id":"15" }
+	at com.wteam.utils.ValidUtil.notNull(ValidUtil.java:36)
+	at com.wteam.modules.library.service.impl.UserExtraExtraServiceImpl.findByUserId(UserExtraExtraServiceImpl.java:69)
+	at com.wteam.modules.library.service.impl.UserExtraExtraServiceImpl$$FastClassBySpringCGLIB$$ca35a056.invoke(<generated>)
 

@@ -7,8 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 /**
- * @Author: Charles
- * @Date: 2020/9/21 11:07
+ * @author Charles
+ * @since 2020/9/21 11:07
  */
 @Mapper(componentModel = "spring",uses = {RoomMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface FloorMapper extends BaseMapper<FloorDTO, Floor> {

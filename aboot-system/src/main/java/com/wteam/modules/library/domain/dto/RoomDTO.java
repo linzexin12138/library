@@ -1,10 +1,8 @@
 package com.wteam.modules.library.domain.dto;
 
-import com.wteam.modules.library.domain.Seat;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * @Author: Charles
@@ -18,5 +16,4 @@ public class RoomDTO implements Serializable {
 
     private String name;
 
-    private Set<SeatDTO> seats;
 }

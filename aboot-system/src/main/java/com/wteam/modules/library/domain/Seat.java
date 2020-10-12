@@ -44,9 +44,8 @@ public class Seat extends BaseEntity{
      * 状态:0为禁用，1可用
      */
     @Column(columnDefinition = "tinyint(1)  default 1 comment \'状态:0为禁用，1为可用\'")
-    private Integer status;
+    private Boolean enabled;
 
-    @JsonIgnoreProperties({"seats"})
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;

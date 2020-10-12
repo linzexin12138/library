@@ -6,8 +6,8 @@ import java.io.Serializable;
 import java.time.LocalTime;
 
 /**
- * @Author: Charles
- * @Date: 2020/9/28 19:07
+ * @author Charles
+ * @since 2020/9/28 19:07
  */
 
 @Data
