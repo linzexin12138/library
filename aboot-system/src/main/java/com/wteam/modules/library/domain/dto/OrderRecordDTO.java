@@ -8,8 +8,10 @@
  */
 package com.wteam.modules.library.domain.dto;
 
+import com.wteam.modules.library.domain.OrderTime;
 import lombok.Data;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -23,14 +25,13 @@ import io.swagger.annotations.ApiModelProperty;
 public class OrderRecordDTO implements Serializable {
     private Long id;
 
-
     /** 预约日期 */
     @ApiModelProperty( "预约日期")
     private LocalDate date;
 
     /** 预约时间段id */
     @ApiModelProperty( "预约时间段id")
-    private Long orderTimeId;
+    private OrderTimeDTO orderTime;
 
     /** 用户id */
     @ApiModelProperty( "用户id")
@@ -43,4 +44,16 @@ public class OrderRecordDTO implements Serializable {
     /** 座位状态*/
     @ApiModelProperty( "座位状态")
     private Integer status;
+
+    /** 房间 */
+    @ApiModelProperty( "房间名")
+    private String roomName;
+
+    /** 楼层 */
+    @ApiModelProperty( "楼层名")
+    private String floorName;
+
+    /** 创建时间 */
+    @ApiModelProperty("创建时间")
+    private Timestamp createdAt;
 }

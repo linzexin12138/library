@@ -14,8 +14,8 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
- * @Author: Charles
- * @Date: 2020/9/23 14:00
+ * @author Charles
+ * @since 2020/9/23 14:00
  */
 
 @Entity

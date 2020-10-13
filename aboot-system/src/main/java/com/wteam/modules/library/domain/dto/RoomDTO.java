@@ -16,4 +16,6 @@ public class RoomDTO implements Serializable {
 
     private String name;
 
+    private FloorDTO floorDTO;
+
 }

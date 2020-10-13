@@ -1,0 +1,22 @@
+2020/09/26 14:48:27 INFO [main] c.w.AbootRunTests [StartupInfoLogger.java:55] Starting AbootRunTests on LAPTOP-6P4NQTEI with PID 12508 (started by lin in C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system)
+2020/09/26 14:48:27 INFO [main] c.w.AbootRunTests [SpringApplication.java:655] The following profiles are active: dev
+2020/09/26 14:48:56 INFO [main] c.w.u.PathUtil [PathUtil.java:54] 操作系统---Windows 10
+2020/09/26 14:48:56 INFO [main] c.w.u.PathUtil [PathUtil.java:55] 线程根路径---/C:/Users/lin/Desktop/%e5%9b%be%e4%b9%a6%e9%a6%86%e9%a2%84%e7%ba%a6%e9%a1%b9%e7%9b%ae/%e9%a1%b9%e7%9b%ae/aboot4/aboot-system/target/test-classes/
+2020/09/26 14:48:56 INFO [main] c.w.u.PathUtil [PathUtil.java:56] 项目目录路径---C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system
+2020/09/26 14:48:56 INFO [main] c.w.u.PathUtil [PathUtil.java:61] 资源存储路径---D:\projectdev\aboot4\
+2020/09/26 14:49:00 INFO [main] c.w.c.RedisConfig [RedisConfig.java:122] 初始化 -> [Redis CacheErrorHandler]
+2020/09/26 14:49:08 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:all------卡券管理
+2020/09/26 14:49:08 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:add------卡券创建
+2020/09/26 14:49:08 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:edit------卡券编辑
+2020/09/26 14:49:08 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:list------卡券查询
+2020/09/26 14:49:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:del------卡券删除
+2020/09/26 14:49:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:all------预约规则管理
+2020/09/26 14:49:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:add------预约规则创建
+2020/09/26 14:49:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:edit------预约规则编辑
+2020/09/26 14:49:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:list------预约规则查询
+2020/09/26 14:49:09 INFO [main] c.w.m.s.e.PermissionListener [PermissionListener.java:95] 设置权限: RULE:del------预约规则删除
+2020/09/26 14:49:10 INFO [main] c.w.AbootRunTests [StartupInfoLogger.java:61] Started AbootRunTests in 44.705 seconds (JVM running for 48.365)
+2020/09/26 14:52:14 INFO [main] c.w.AbootRunTests [StartupInfoLogger.java:55] Starting AbootRunTests on LAPTOP-6P4NQTEI with PID 19472 (started by lin in C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system)
+2020/09/26 14:52:14 INFO [main] c.w.AbootRunTests [SpringApplication.java:655] The following profiles are active: dev
+2020/09/26 15:12:16 INFO [main] c.w.AbootRunTests [StartupInfoLogger.java:55] Starting AbootRunTests on LAPTOP-6P4NQTEI with PID 19520 (started by lin in C:\Users\lin\Desktop\图书馆预约项目\项目\aboot4\aboot-system)
+2020/09/26 15:12:16 INFO [main] c.w.AbootRunTests [SpringApplication.java:655] The following profiles are active: dev

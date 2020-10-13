@@ -12,7 +12,7 @@ import org.mapstruct.ReportingPolicy;
  * @since 2020/9/21 13:13
  */
 
-@Mapper(componentModel = "spring",uses = {},unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring",uses = {RoomMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface SeatMapper extends BaseMapper<SeatDTO, Seat> {
 
 }

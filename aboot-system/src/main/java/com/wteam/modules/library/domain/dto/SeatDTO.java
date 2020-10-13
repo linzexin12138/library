@@ -16,4 +16,6 @@ public class SeatDTO implements Serializable {
 
     private String name;
 
+    private RoomDTO room;
+
 }

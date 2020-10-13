@@ -9,18 +9,17 @@
 package com.wteam.modules.library.domain.mapper;
 
 import com.wteam.base.BaseMapper;
-import com.wteam.modules.library.domain.OrderTime;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import com.wteam.modules.library.domain.dto.OrderRecordDTO;;
-import com.wteam.modules.library.domain.OrderRecord;;
+import com.wteam.modules.library.domain.dto.CreditScoreLogDTO;;
+import com.wteam.modules.library.domain.CreditScoreLog;;
 
 /**
-* 预约记录 领域转换层.
+* 信用分记录 领域转换层.
 * @author charles
-* @since 2020-09-23
+* @since 2020-10-03
 */
-@Mapper(componentModel = "spring",uses = {OrderTimeMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface OrderRecordMapper extends BaseMapper<OrderRecordDTO, OrderRecord> {
+@Mapper(componentModel = "spring",uses = {},unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface CreditScoreLogMapper extends BaseMapper<CreditScoreLogDTO, CreditScoreLog> {
 
 }

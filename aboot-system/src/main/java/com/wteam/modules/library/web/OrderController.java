@@ -55,6 +55,10 @@ public class OrderController {
     private static final int ORDER_TIME_OUT = 3;
     private static final int ORDER_CANCEL = 4;
 
+    private static final int SIGN_IN_LATE = 1;
+    private static final int CANCEL_LATE = 2;
+    private static final int FIRST_SIGN = 1;
+
     @ApiOperation(value = "预约座位")
     @Log("预约座位")
     @Transactional(rollbackFor = Exception.class)
@@ -126,6 +130,8 @@ public class OrderController {
         UserExtra userExtra = userExtraService.findByUserId(userId);
         CreditScoreLog creditScoreLog = null;
 
+        int userExtraScore = userExtra.getCreditScore();
+
         if (!TimeUtil.isToday(date)){
             throw new BadRequestException("还没到预约当天，不可以签到");
         }else if(nowTime.isAfter(orderEndTime)){
@@ -133,17 +139,17 @@ public class OrderController {
         }else if(orderStarTime.isBefore(orderCreateTime) || orderStarTime.equals(orderCreateTime)){
             //当用户预约座位时正好在预约时间段内，则在预约后十分钟内进行签到不扣分
             if (nowTime.isAfter(orderCreateTime.plusMinutes(10L))){
-                int score = userExtra.getCreditScore() - 1;
+                int score = userExtra.getCreditScore() - SIGN_IN_LATE;
                 userExtra.setCreditScore(score);
-                creditScoreLog = createCreditLog(userId,"迟到十分钟，扣除1分信用分",-1);
+                creditScoreLog = createCreditLog(userId,"迟到十分钟，扣除"+SIGN_IN_LATE+"分信用分",-SIGN_IN_LATE);
             }
         }else if(nowTime.isBefore(checkStartTime)){
             throw new BadRequestException("预约时间的前十分钟才开始签到");
         }else if(nowTime.isAfter(orderStarTime.plusMinutes(10L))){
             //在预约开始时间后十分钟进行签到则要扣除1分信用分
-            int score = userExtra.getCreditScore() - 1;
+            int score = userExtra.getCreditScore() - SIGN_IN_LATE;
             userExtra.setCreditScore(score);
-            creditScoreLog = createCreditLog(userId,"迟到十分钟，扣除1分信用分",-1);
+            creditScoreLog = createCreditLog(userId,"迟到十分钟，扣除"+SIGN_IN_LATE+"分信用分",-SIGN_IN_LATE);
         }
 
         if (creditScoreLog != null){
@@ -154,17 +160,20 @@ public class OrderController {
         if (!userExtra.getSignInFlag()){
             userExtra.setSignInFlag(true);
 
-            int score = userExtra.getCreditScore() + 1;
+            int score = userExtra.getCreditScore() + FIRST_SIGN;
             score = score > 100 ? 100 : score;
             userExtra.setCreditScore(score);
-            CreditScoreLog addScoreLog = createCreditLog(userId,"签到成功，加1分信用分",1);
+            CreditScoreLog addScoreLog = createCreditLog(userId,"签到成功，加"+FIRST_SIGN+"分信用分",FIRST_SIGN);
             creditScoreService.create(addScoreLog);
         }
 
         orderRecord.setId(orderRecordId);
         orderRecord.setStatus(ORDER_SIGN_IN);
         orderRecordService.updateStatus(orderRecord);
-        userExtraService.updateCreditScore(userExtra);
+
+        if (userExtraScore != userExtra.getCreditScore()){
+            userExtraService.updateCreditScore(userExtra);
+        }
 
         return R.ok("签到成功");
     }
@@ -225,15 +234,17 @@ public class OrderController {
         UserExtra userExtra = userExtraService.findByUserId(SecurityUtils.getId());
         CreditScoreLog creditScoreLog = null;
 
+        int userExtraScore = userExtra.getCreditScore();
+
         //预约时间在今天以前的为过期
         if (TimeUtil.isHistory(date)){
             throw new BadRequestException("该预约已过期");
         }else if (TimeUtil.isToday(date)){
             //如果取消时预约已经开始了，则扣除信用分
             if (nowTime.isAfter(starTime)){
-                int score = userExtra.getCreditScore() - 3;
+                int score = userExtra.getCreditScore() - CANCEL_LATE;
                 userExtra.setCreditScore(score);
-                creditScoreLog = createCreditLog(SecurityUtils.getId(),"取消预约时间过晚，扣除3分信用分",-3);
+                creditScoreLog = createCreditLog(SecurityUtils.getId(),"取消预约时间过晚，扣除"+ CANCEL_LATE + "分信用分",-CANCEL_LATE);
             }
             //预约时间已经过期
             if (nowTime.isAfter(endTime)){
@@ -246,8 +257,11 @@ public class OrderController {
         userOrderService.deleteByOrderId(orderRecord.getId());
 
         if (creditScoreLog != null){
-            userExtraService.updateStatus(userExtra);
             creditScoreService.create(creditScoreLog);
+        }
+
+        if (userExtraScore != userExtra.getCreditScore()){
+            userExtraService.updateCreditScore(userExtra);
         }
 
         return R.ok("取消成功");
@@ -257,20 +271,20 @@ public class OrderController {
     @ApiOperation(value = "我的预约")
     @Log("我的预约")
     @GetMapping("myOrder")
-    public R myOrder(@RequestParam Long userId){
+    public R myOrder(Pageable pageable){
         OrderRecordQueryCriteria criteria = new OrderRecordQueryCriteria();
-        criteria.setUserId(userId);
-        return R.ok(orderRecordService.queryAll(criteria));
+        criteria.setUserId(SecurityUtils.getId());
+        return R.ok(orderRecordService.queryAll(criteria,pageable));
     }
 
-    @ApiOperation(value = "预约情况")
-    @Log("预约情况")
-    @GetMapping("orderInfo")
-    public R orderInfo(@RequestParam LocalDate date){
-        OrderRecordQueryCriteria criteria = new OrderRecordQueryCriteria();
-        criteria.setDate(date);
-        return R.ok(orderRecordService.queryAll(criteria));
-    }
+//    @ApiOperation(value = "预约情况")
+//    @Log("预约情况")
+//    @GetMapping("orderInfo")
+//    public R orderInfo(@RequestParam LocalDate date){
+//        OrderRecordQueryCriteria criteria = new OrderRecordQueryCriteria();
+//        criteria.setDate(date);
+//        return R.ok(orderRecordService.queryAll(criteria));
+//    }
 
     @ApiOperation(value = "某馆号的座位预约情况")
     @Log("某馆号的座位预约情况")

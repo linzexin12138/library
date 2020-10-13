@@ -11,14 +11,16 @@ package com.wteam.modules.library.service.impl;
 
 import com.wteam.exception.BadRequestException;
 import com.wteam.modules.library.domain.OrderTime;
+import com.wteam.modules.library.domain.dto.FloorDTO;
+import com.wteam.modules.library.domain.dto.RoomDTO;
+import com.wteam.modules.library.domain.dto.SeatDTO;
 import com.wteam.modules.library.domain.vo.OrderRecordVO;
-import com.wteam.modules.library.service.OrderRecordService;
+import com.wteam.modules.library.service.*;
 import com.wteam.modules.library.domain.OrderRecord;
 import com.wteam.modules.library.domain.dto.OrderRecordDTO;
 import com.wteam.modules.library.domain.criteria.OrderRecordQueryCriteria;
 import com.wteam.modules.library.domain.mapper.OrderRecordMapper;
 import com.wteam.modules.library.repository.OrderRecordRepository;
-import com.wteam.modules.library.service.OrderTimeService;
 import com.wteam.utils.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,6 +51,8 @@ public class OrderRecordServiceImpl implements OrderRecordService {
 
     private final OrderTimeService orderTimeService;
 
+    private final SeatService seatService;
+
     private final OrderRecordMapper orderRecordMapper;
 
     private final RedisUtils redisUtils;
@@ -58,7 +62,14 @@ public class OrderRecordServiceImpl implements OrderRecordService {
     @Override
     public Map<String,Object> queryAll(OrderRecordQueryCriteria criteria, Pageable pageable){
         Page<OrderRecord> page = orderRecordRepository.findAll((root, criteriaQuery, criteriaBuilder) ->  QueryHelper.andPredicate(root,criteria,criteriaBuilder),pageable);
-        return PageUtil.toPage(page.map(orderRecordMapper::toDto));
+        Page<OrderRecordDTO> pageDTO = page.map(orderRecordMapper::toDto);
+        for (OrderRecordDTO dto : pageDTO.getContent()){
+            RoomDTO room = seatService.findDTOById(dto.getSeatId()).getRoom();
+            FloorDTO floor = room.getFloorDTO();
+            dto.setRoomName(room.getName());
+            dto.setFloorName(floor.getName());
+        }
+        return PageUtil.toPage(pageDTO);
     }
 
     @Override
@@ -163,7 +174,7 @@ public class OrderRecordServiceImpl implements OrderRecordService {
         for (OrderRecordDTO orderRecord : queryAll) {
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("预约日期", orderRecord.getDate());
-            map.put("预约时间段id", orderRecord.getOrderTimeId());
+            map.put("预约时间段id", orderRecord.getOrderTime().getId());
             map.put("用户id", orderRecord.getUserId());
             list.add(map);
         }

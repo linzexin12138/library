@@ -11,6 +11,6 @@ import org.mapstruct.ReportingPolicy;
  * @since 2020/9/21 13:09
  */
 
-@Mapper(componentModel = "spring",uses = {SeatMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring",uses = {FloorMapper.class},unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RoomMapper extends BaseMapper<RoomDTO, Room> {
 }
